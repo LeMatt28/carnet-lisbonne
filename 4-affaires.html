@@ -351,8 +351,33 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
 .whobtn:focus-visible,.bagbtn:focus-visible,.it label:focus-within{outline:3px solid var(--orange);outline-offset:3px}
 
 /* Les trois bagages */
-.bags{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start}
-@media (max-width:900px){.bags{grid-template-columns:1fr}}
+.bags{display:grid;grid-template-columns:1fr;gap:22px;align-items:start}
+.bags.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:760px){.bags.two{grid-template-columns:1fr}}
+.sharedgrid{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:18px;align-items:center}
+@media (max-width:620px){.sharedgrid{grid-template-columns:1fr}}
+.bag.shared .items{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:760px){.bag.shared .items{grid-template-columns:1fr}}
+.bag.shared .tag{font-size:16px;right:-14px}
+.own{display:inline-block;font-size:11.5px;font-weight:700;line-height:1.3;padding:0 6px;margin:2px 4px 2px 0;border-radius:2px}
+.own.m{background:var(--blue-soft);color:var(--blue-deep);border:1px solid #9fb3d6}
+.own.e{background:var(--pink-soft);color:#8a1846;border:1px solid #e3a3bd}
+.own.c{background:var(--hl-green);color:#1f4a2a}
+.own.x{background:var(--hl-orange);color:#6a3a00}
+.it label:not(:has(.q)){grid-template-columns:34px 1fr}
+.owns{display:block}
+.weigh{display:grid;gap:8px;background:rgba(255,253,246,.9);border:1.5px dashed rgba(38,50,74,.35);border-radius:6px;padding:12px 14px}
+.gauge{position:relative;height:22px;border:1.5px solid var(--fg);border-radius:3px;background:#fffdf6;overflow:hidden}
+.gauge i{position:absolute;left:0;top:0;bottom:0;width:0;transition:width .5s cubic-bezier(.3,1.2,.5,1),background .3s;background:repeating-linear-gradient(45deg,var(--green) 0 4px,#7fb38a 4px 8px)}
+.gauge i.soon{background:repeating-linear-gradient(45deg,var(--orange) 0 4px,#f0b46e 4px 8px)}
+.gauge i.warn{background:repeating-linear-gradient(45deg,var(--red) 0 4px,#e3877c 4px 8px)}
+.gauge .lim{position:absolute;left:calc(100% / 11 * 10);top:-2px;bottom:-2px;border-left:2px dashed var(--red);padding-left:3px;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--red);line-height:24px}
+.gnum{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.gnum b{font-family:var(--mono);font-size:24px;color:var(--blue-deep)}
+.opts{display:grid;gap:4px}
+.opts label{display:flex;gap:8px;align-items:baseline;font-size:14.5px;cursor:pointer}
+.opts input{accent-color:var(--blue-deep);width:16px;height:16px;flex:none;transform:translateY(2px)}
+.opts small{color:var(--muted);font-family:var(--mono);font-size:12px;margin-left:auto;white-space:nowrap}
 .bag{padding:18px 16px 16px;display:grid;gap:12px;min-width:0}
 .bag .bh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
 .bag h3{margin:0;font-size:28px;line-height:1}
@@ -493,7 +518,6 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
 .sources{columns:2 300px;column-gap:28px;font-size:13.5px;margin:0;padding-left:22px}
 .sources li{break-inside:avoid;margin-bottom:6px;overflow-wrap:anywhere}
 .sources li span{color:var(--muted)}
-@media (min-width:901px){.bag{padding:16px 11px 12px}.it label{grid-template-columns:26px 1fr auto;gap:6px;padding:6px 7px}.it .em{font-size:19px}.it b{font-size:14.5px}.it .q{font-size:14px;min-width:32px;padding:1px 4px}}
 @media (prefers-reduced-motion:reduce){.case .lid,.pack .flap,.pop,.it,.content{transition:none!important}.bag.open .wear .coat{animation:none}}
 </style>
 
@@ -507,35 +531,50 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
   <header class="hero aff-hero">
     <div class="label">Carnet de voyage · 9 → 13 novembre 2026</div>
     <h1>🎒 Les affaires</h1>
-    <p class="sub">Ce qu'on emporte, chacun : 1 petit sac sous le siège + 1 bagage cabine 10 kg (Priority). Mêmes affaires pour Matteo et Enzio.</p>
-    <div class="chips"><span>👜 40 × 30 × 20 cm</span><span>🧳 cabine 10 kg</span><span>🌧️ 3 jours de pluie sur 5</span><span>🌡️ doux, 16-21 °C</span><span>🔌 pas d'adaptateur</span></div>
+    <p class="sub">Une seule valise cabine de 10 kg pour nous deux, plus un petit sac sous le siège chacun. Le plus lourd, on le porte sur soi.</p>
+    <div class="chips"><span>🧳 1 cabine 10 kg pour deux · 55×40×20</span><span>👜 1 petit sac chacun · 40×30×20</span><span>🌧️ 3 jours de pluie sur 5</span><span>🌡️ doux, 16-21 °C</span><span>🔌 pas d'adaptateur</span></div>
   </header>
 
   <div class="section-title"><h2>Ouvre les sacs</h2></div>
-  <p class="lead">Clique sur un bagage pour l'ouvrir et voir ce qu'il y a dedans. Tu peux cocher chaque affaire quand elle est dans le sac (c'est gardé sur ton téléphone).</p>
+  <p class="lead">Clique sur un bagage pour l'ouvrir. Dans la valise commune, chaque affaire dit à qui elle est : <span class="own m">M</span> Matteo, <span class="own e">E</span> Enzio, <span class="own c">à deux</span> partagé. Tu peux cocher ce qui est déjà rangé (c'est gardé sur ton téléphone).</p>
+
+  <div class="bags">
+    <article class="card bag shared taped" id="bag-cabine">
+      <div class="bh"><h3>La valise commune</h3><span class="dim">10 kg · 55×40×20 · en haut</span></div>
+      <div class="sharedgrid">
+        <button class="bagbtn" type="button" aria-expanded="false" aria-controls="ct-cabine">
+          <span class="scene" aria-hidden="true">
+            <span class="pop">👕</span><span class="pop">👖</span><span class="pop">🧦</span>
+            <span class="case"><span class="handle"></span><span class="shell"></span><span class="inside"></span><span class="lid"></span><span class="wheels"><i></i><i></i></span></span>
+            <span class="tag">Matteo + Enzio</span>
+          </span>
+          <span class="hint">Ouvrir la valise</span>
+        </button>
+        <div class="weigh" id="weigh">
+          <div class="hand">Ça tient dans 10 kg ?</div>
+          <div class="gauge" role="img" aria-label="Poids estimé de la valise"><i id="g-bar"></i><span class="lim">10 kg</span></div>
+          <div class="gnum"><b id="g-kg">≈ 8,0 kg</b> <span id="g-msg" class="pill ok">ça passe</span></div>
+          <div class="opts">
+            <label><input type="checkbox" id="o-shoes"> 2e paire de chaussures normales <small>+0,8 kg</small></label>
+            <label><input type="checkbox" id="o-pant"> 3e pantalon chacun <small>+0,9 kg</small></label>
+            <label><input type="checkbox" id="o-layer"> pulls de rechange portés sur soi <small>−0,6 kg</small></label>
+          </div>
+          <p class="tiny"><b>Estimation indicative</b>, poids moyens (valise vide ~2,5 kg selon le modèle, pantalon ~450 g, pull fin ~300 g, t-shirt ~150 g, chaussures ~800 g). <b>Pesez la valise avant de partir</b> : sur une balance, se peser avec la valise puis sans.</p>
+        </div>
+      </div>
+      <div class="content" id="ct-cabine"><div><ul class="items" data-bag="cabine"></ul><div class="ckinfo"><span>Dans la valise</span><b data-count></b></div></div></div>
+    </article>
+  </div>
 
   <div class="who" role="group" aria-label="Les affaires de qui ?">
-    <span class="label">Les affaires de :</span>
+    <span class="label">Petit sac et tenue de :</span>
     <button class="whobtn" type="button" data-who="Matteo" aria-pressed="true">Matteo</button>
     <button class="whobtn alt" type="button" data-who="Enzio" aria-pressed="false">Enzio</button>
   </div>
 
-  <div class="bags">
-    <article class="card bag taped" id="bag-cabine">
-      <div class="bh"><h3>Bagage cabine</h3><span class="dim">10 kg · en haut</span></div>
-      <button class="bagbtn" type="button" aria-expanded="false" aria-controls="ct-cabine">
-        <span class="scene" aria-hidden="true">
-          <span class="pop">👕</span><span class="pop">👖</span><span class="pop">🧦</span>
-          <span class="case"><span class="handle"></span><span class="shell"></span><span class="inside"></span><span class="lid"></span><span class="wheels"><i></i><i></i></span></span>
-          <span class="tag" data-name>Matteo</span>
-        </span>
-        <span class="hint">Ouvrir la valise</span>
-      </button>
-      <div class="content" id="ct-cabine"><div><ul class="items" data-bag="cabine"></ul><div class="ckinfo"><span>Dans la valise</span><b data-count></b></div></div></div>
-    </article>
-
+  <div class="bags two">
     <article class="card bag taped" id="bag-sac">
-      <div class="bh"><h3>Petit sac</h3><span class="dim">40×30×20 · sous le siège</span></div>
+      <div class="bh"><h3>Petit sac <span data-de>de Matteo</span></h3><span class="dim">40×30×20 · sous le siège</span></div>
       <button class="bagbtn" type="button" aria-expanded="false" aria-controls="ct-sac">
         <span class="scene" aria-hidden="true">
           <span class="pop">📱</span><span class="pop">🪪</span><span class="pop">🔋</span>
@@ -548,7 +587,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
     </article>
 
     <article class="card bag taped" id="bag-soi">
-      <div class="bh"><h3>Sur soi</h3><span class="dim">dans l'avion</span></div>
+      <div class="bh"><h3>Sur <span data-name>Matteo</span></h3><span class="dim">dans l'avion</span></div>
       <button class="bagbtn" type="button" aria-expanded="false" aria-controls="ct-soi">
         <span class="scene" aria-hidden="true">
           <span class="pop">🥾</span><span class="pop">🧥</span><span class="pop">👖</span>
@@ -562,9 +601,11 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
   </div>
 
   <div class="notes">
-    <div class="callout"><b>🔌 Pas d'adaptateur.</b> Les prises au Portugal sont les mêmes qu'en France.</div>
-    <div class="callout"><b>🧴 Liquides :</b> 100 ml maximum par flacon, tout dans un sachet transparent de 1 L, sorti au contrôle.</div>
-    <div class="callout red"><b>🔋 Batterie externe :</b> toujours dans le petit sac, avec soi. Jamais dans un bagage qui part en soute.</div>
+    <div class="callout"><b>👟 Chaussures normales : proposition.</b> Une seule paire dans la valise, pour l'un des deux (à décider entre vous). L'autre garde ses randos toute la semaine. Deux paires, ça passe aussi (~8,8 kg), mais avec moins de marge.</div>
+    <div class="callout"><b>👖 2 pantalons chacun</b> : 1 porté, 1 de rechange dans la valise. Le 3e pantalon reste possible (+0,9 kg pour deux) si on n'emporte qu'une paire de chaussures normales.</div>
+    <div class="callout"><b>🧴 Liquides :</b> chacun son sachet transparent de 1 L dans son petit sac, c'est obligatoire par personne au contrôle. Flacons de 100 ml maximum. Les liquides partagés sont répartis entre les deux sachets.</div>
+    <div class="callout red"><b>🔋 Batterie externe :</b> une chacun, dans le petit sac, toujours avec soi. Jamais dans un bagage qui part en soute.</div>
+    <div class="callout"><b>🔌 Pas d'adaptateur.</b> Les prises au Portugal sont les mêmes qu'en France. Un seul chargeur multi-ports suffit pour deux.</div>
   </div>
 </section>
 
@@ -597,8 +638,8 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
 
     <article class="card rc taped">
       <span class="verdict no">✗ Pas de pantalon de pluie</span>
-      <h3>👖 Les 3 pantalons tournent</h3>
-      <p>Un mouillé sèche pendant qu'on porte l'autre. <b>Surpantalon fin : facultatif</b>, seulement utile mardi.</p>
+      <h3>👖 Les 2 pantalons tournent</h3>
+      <p>Un sur soi, un sec qui attend à l'auberge : le mouillé sèche pendant qu'on porte l'autre. <b>Surpantalon fin : facultatif</b>, seulement utile mardi.</p>
     </article>
 
     <article class="card rc taped">
@@ -628,7 +669,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
 <!-- ============ JOUR PAR JOUR ============ -->
 <section class="sheet">
   <div class="section-title"><h2>Quoi porter, jour par jour</h2></div>
-  <p class="lead">Météo Open-Meteo du 8 novembre : doux, 16-21 °C. Les numéros de pantalon sont une proposition de roulement : n°1 = celui porté dans l'avion, n°2 et n°3 = ceux de la valise.</p>
+  <p class="lead">Météo Open-Meteo du 8 novembre : doux, 16-21 °C. Les numéros sont une proposition de roulement : pantalon n°1 = celui porté dans l'avion, n°2 = celui de la valise commune. Règle simple : il reste toujours un pantalon sec à l'auberge.</p>
 
   <div class="days">
     <article class="card dayc taped">
@@ -638,7 +679,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
         <p class="meteo">Sec le matin, puis pluie dès ~14 h : <b>il pleut à l'atterrissage</b> (14:45) et toute la soirée, avec du vent.</p>
         <div class="outfit">
           <div><span class="h">Sur soi</span><ul><li>Randos aux pieds</li><li>Pantalon n°1, t-shirt, pull fin</li><li>Veste de pluie <b>dès l'arrivée</b></li></ul></div>
-          <div><span class="h">Dans les sacs</span><ul><li>Housse anti-pluie sur le petit sac en sortant de l'aéroport</li><li>Téléphone protégé</li><li>Le soir : pyjama sec, on étend ce qui est mouillé</li></ul></div>
+          <div><span class="h">Dans les sacs</span><ul><li>Housse anti-pluie sur le petit sac en sortant de l'aéroport</li><li>Téléphone protégé</li><li>Le soir : pyjama sec sorti de la valise ; si le n°1 est trempé, on passe au n°2 et on étend le n°1</li></ul></div>
         </div>
       </div>
     </article>
@@ -649,8 +690,8 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
         <div class="bars"><span class="b-storm"><i>🌧️💨</i>matin<br>pluie jusqu'à midi</span><span class="b-mix"><i>🌥️</i>après-midi<br>accalmie 16-18 h</span><span class="b-dry"><i>🌙</i>soir<br>presque sec ~20 h</span></div>
         <p class="meteo"><b>La pire journée</b> : pluie toute la matinée et vent fort. Ça se calme entre 16 et 18 h, le soir est presque sec vers 20 h.</p>
         <div class="outfit">
-          <div><span class="h">Sur soi</span><ul><li>Tenue pluie complète : veste, capuche serrée, randos</li><li>Pantalon n°2 (+ surpantalon si on en a un)</li><li>T-shirt n°1 de la valise</li></ul></div>
-          <div><span class="h">Pour le soir</span><ul><li><b>Pantalon n°3, sec</b>, gardé à l'auberge</li><li>Une paire de chaussettes sèches de rechange (on en a 6)</li><li>Le n°2 mouillé : sac congélation ou étendu</li></ul></div>
+          <div><span class="h">Sur soi</span><ul><li>Tenue pluie complète : veste, capuche serrée, randos</li><li>Pantalon n°1, séché la nuit (+ surpantalon si on en a un)</li><li>T-shirt n°1 de la valise</li></ul></div>
+          <div><span class="h">Pour le soir</span><ul><li><b>Pantalon n°2, sec</b>, resté dans la valise à l'auberge</li><li>Une paire de chaussettes sèches dans le petit sac pour la journée</li><li>Le n°1 mouillé : étendu, ou dans un sac congélation</li></ul></div>
         </div>
       </div>
     </article>
@@ -661,7 +702,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
         <div class="bars"><span class="b-wet"><i>🌧️</i>matin + midi<br>pluie</span><span class="b-mix"><i>🌦️</i>après-midi<br>ça faiblit</span><span class="b-dry"><i>🌙</i>soir<br>sec, vent tombe</span></div>
         <p class="meteo">Pluie le matin et à midi, elle faiblit l'après-midi. Soir sec dès 20 h et le vent tombe.</p>
         <div class="outfit">
-          <div><span class="h">Sur soi</span><ul><li>Veste de pluie, randos</li><li>Le pantalon le plus sec (n°1 séché depuis lundi)</li><li>T-shirt n°2</li></ul></div>
+          <div><span class="h">Sur soi</span><ul><li>Veste de pluie, randos</li><li>Le plus sec des deux pantalons, l'autre sèche</li><li>T-shirt n°2</li></ul></div>
           <div><span class="h">Dans les sacs</span><ul><li>Housse sur le petit sac jusqu'à l'après-midi</li><li>Le soir : laver un t-shirt au lavabo, il sèche dans la nuit</li></ul></div>
         </div>
       </div>
@@ -673,8 +714,8 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
         <div class="bars"><span class="b-dry"><i>☀️</i>matin<br>ensoleillé</span><span class="b-mix"><i>☁️</i>après-midi<br>nuageux, sec</span><span class="b-dry"><i>🌙</i>soir<br>dégagé ~16 °C</span></div>
         <p class="meteo"><b>La belle journée</b> : soleil le matin, nuageux mais sec l'après-midi, soir dégagé autour de 16 °C.</p>
         <div class="outfit">
-          <div><span class="h">Sur soi</span><ul><li>Tenue légère : pantalon sec (n°3), t-shirt n°3</li><li><b>Chaussures normales</b> possibles (on les sort du sac plastique)</li></ul></div>
-          <div><span class="h">Pour le soir</span><ul><li>Pull fin + veste (il fait ~16 °C)</li><li>Avant de dormir : <b>préparer les sacs</b> pour le check-out de demain</li></ul></div>
+          <div><span class="h">Sur soi</span><ul><li>Tenue légère : le pantalon sec, t-shirt n°3 (le dernier de la valise)</li><li><b>Chaussures normales</b> pour celui qui les a prises ; l'autre reste en randos (journée sèche, pas de souci)</li></ul></div>
+          <div><span class="h">Pour le soir</span><ul><li>Pull fin + veste (il fait ~16 °C)</li><li>Avant de dormir : <b>refaire la valise commune ensemble</b> et préparer les petits sacs, pour le check-out de demain</li></ul></div>
         </div>
       </div>
     </article>
@@ -685,8 +726,8 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
         <div class="bars"><span class="b-dry"><i>🌤️</i>matin<br>sec, éclaircies</span><span class="b-mix"><i>🛏️</i>avant 11 h<br>check-out</span><span class="b-mix"><i>✈️</i>12:45<br>FR487</span></div>
         <p class="meteo">Sec avec des éclaircies. Check-out avant 11 h, vol à 12:45.</p>
         <div class="outfit">
-          <div><span class="h">Sur soi</span><ul><li>Tenue de voyage : randos aux pieds (elles prennent trop de place dans la valise)</li><li>Le pantalon le plus propre, t-shirt n°4, pull, veste</li></ul></div>
-          <div><span class="h">Dans les sacs</span><ul><li>Affaires mouillées dans les <b>sacs congélation</b></li><li>Linge sale dans son sac</li><li>Chaussures normales dans leur sac plastique</li></ul></div>
+          <div><span class="h">Sur soi</span><ul><li>Tenue de voyage : randos aux pieds (elles prennent trop de place dans la valise)</li><li>Le pantalon le plus propre, le t-shirt du petit sac, pull, veste</li></ul></div>
+          <div><span class="h">Dans les sacs</span><ul><li>Affaires mouillées dans les <b>sacs congélation</b>, dans la valise</li><li>Linge sale dans son sac, chaussures normales dans leur sac plastique</li><li>Chacun son sachet liquides 1 L dans son petit sac pour le contrôle</li></ul></div>
         </div>
       </div>
     </article>
@@ -741,7 +782,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
       <h3>🪶 Bien vivre avec peu</h3>
       <ul>
         <li><span>🧼</span><span><b>Laver au lavabo</b> un t-shirt ou un slip le soir : peu de savon, rincer, <b>essorer en le roulant dans la serviette</b>. <a class="src" href="#s14">[14]</a> Étendu la nuit, c'est sec le matin. <a class="src" href="#s15">[15]</a></span></li>
-        <li><span>🧥</span><span><b>Porter le plus lourd dans l'avion</b> : chaussures et veste prennent beaucoup de place dans le sac. <a class="src" href="#s16">[16]</a> <a class="src" href="#s17">[17]</a> Pour nous : randos, pull, veste de pluie.</span></li>
+        <li><span>🧥</span><span><b>Porter le plus lourd dans l'avion</b> : chaussures et veste prennent beaucoup de place dans le sac. <a class="src" href="#s16">[16]</a> <a class="src" href="#s17">[17]</a> Pour nous : randos, pantalon, pull, veste de pluie, et la 2e couche si la valise est juste.</span></li>
         <li><span>🌀</span><span><b>Rouler</b> t-shirts, slips et pantalons : moins de plis, et on voit tout d'un coup d'œil en ouvrant la valise. <span class="mine">notre conseil</span></span></li>
         <li><span>🧊</span><span><b>Mouillé d'un côté, sec de l'autre</b> : tout ce qui est humide va dans un sac congélation fermé, jamais en vrac avec le propre. <span class="mine">notre conseil</span></span></li>
         <li><span>🔁</span><span>Un pantalon ou un pull se porte plusieurs jours sans souci ; les slips et chaussettes, eux, sont comptés pour en changer tous les jours. <span class="mine">notre conseil</span></span></li>
@@ -779,58 +820,70 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
 
 <script>
 (function(){
-  var DATA={
-    cabine:[
-      ['👖','Pantalons Uniqlo','3 au total : le 3e est porté dans l\'avion','×2','#2c4f8f'],
-      ['🧶','Pulls fins ou moyens','pas d\'épais : on superpose avec la veste','×2','#cf4778'],
-      ['👕','T-shirts','','×4','#3d7a4c'],
-      ['🩲','Slips','','×5','#d9822b'],
-      ['🧦','Paires de chaussettes','une de plus pour les pieds mouillés','×6','#d9822b'],
-      ['😴','Pyjama / tenue pour dormir','dortoir mixte de 10','×1','#2c4f8f'],
-      ['👟','Chaussures normales (1 paire)','dans un sac plastique','×1','#6c6352'],
-      ['🧴','Trousse de toilette','liquides ≤ 100 ml dans un sachet transparent 1 L','×1','#cf4778'],
-      ['🧻','Serviette microfibre','l\'auberge n\'en fournit pas d\'office : à prendre','×1','#3d7a4c'],
-      ['🧺','Sac pour le linge sale','','×1','#6c6352'],
-      ['🧊','Sacs congélation','pour les habits mouillés','lot','#2c4f8f']
-    ],
-    sac:[
-      ['🪪','Carte d\'identité','','×1','#c0392b'],
-      ['💳','Carte bancaire','','×1','#c0392b'],
-      ['📱','Téléphone','','×1','#2c4f8f'],
-      ['🔋','Batterie externe','toujours avec soi, jamais en soute','×1','#c0392b'],
-      ['🔌','Chargeur + câble','','×1','#2c4f8f'],
-      ['🎧','AirPods','','×1','#2c4f8f'],
-      ['🔒','Cadenas','pour le casier de l\'auberge','×1','#3d7a4c'],
-      ['🤧','Mouchoirs','','×1','#6c6352'],
-      ['🍶','Bouteille vide','à remplir après la sécurité','×1','#3d7a4c'],
-      ['🌧️','Housse anti-pluie','ou sac plastique, pour le sac et le téléphone','×1','#d9822b']
-    ],
-    soi:[
-      ['🥾','Chaussures de rando Decathlon (1 paire)','lundi il pleut à l\'arrivée, et elles sont encombrantes','×1','#6c6352'],
-      ['👖','Pantalon','le n°1 des 3 Uniqlo','×1','#2c4f8f'],
-      ['👕','T-shirt','','×1','#3d7a4c'],
-      ['🧶','Pull','','×1','#cf4778'],
-      ['🧥','Veste de pluie','noire, achetée lundi matin','×1','#1f2430']
-    ]
+  // [emoji, nom, note, quantité, couleur, à qui (M/E/C/ME), poids estimé en g pour la ligne]
+  var CABINE=[
+    ['👖','Pantalon de rechange (Uniqlo)','le 2e est porté dans l\'avion','×1','#2c4f8f','ME'],
+    ['🧶','Pull fin','pas d\'épais : on superpose avec la veste','×1','#cf4778','ME'],
+    ['👕','T-shirts','le 4e est dans le petit sac','×3','#3d7a4c','ME'],
+    ['🩲','Slips','les 2 autres dans le petit sac','×3','#d9822b','ME'],
+    ['🧦','Paires de chaussettes','les 2 autres dans le petit sac','×4','#d9822b','ME'],
+    ['😴','Pyjama / tenue pour dormir','dortoir mixte de 10','×1','#2c4f8f','ME'],
+    ['🧻','Serviette microfibre fine','l\'auberge n\'en fournit pas d\'office','×1','#3d7a4c','ME'],
+    ['👟','Chaussures normales','proposition : 1 seule paire, pour l\'un des deux (à décider), dans un sac plastique','1 paire','#6c6352','?'],
+    ['🪥','Trousse de toilette commune','brosses à dents, déo… Les liquides sont dans les petits sacs','×1','#cf4778','C'],
+    ['🔌','Chargeur multi-ports + câbles','un seul pour deux','×1','#2c4f8f','C'],
+    ['🧺','Sac pour le linge sale','','×1','#6c6352','C'],
+    ['🧊','Sacs congélation','pour les habits mouillés','lot','#2c4f8f','C']
+  ];
+  var LIQ={
+    Matteo:['🧴','Sachet liquides 1 L','dentifrice commun + déo spray commun (≤ 100 ml), et ses liquides perso','×1','#cf4778'],
+    Enzio:['🧴','Sachet liquides 1 L','gel douche commun (≤ 100 ml), et ses liquides perso','×1','#cf4778']
   };
-  var who='Matteo', KEY='carnet-lisbonne-affaires';
-  var state={};
+  function SAC(w){return [
+    ['🪪','Carte d\'identité','','×1','#c0392b'],
+    ['💳','Carte bancaire','','×1','#c0392b'],
+    ['📱','Téléphone','','×1','#2c4f8f'],
+    ['🔋','Batterie externe + son câble','une chacun, toujours avec soi, jamais en soute','×1','#c0392b'],
+    ['🎧','AirPods','','×1','#2c4f8f'],
+    LIQ[w],
+    ['🔒','Cadenas','pour le casier de l\'auberge','×1','#3d7a4c'],
+    ['👕','T-shirt','le 4e, en cas de besoin','×1','#3d7a4c'],
+    ['🩲','Slips','','×2','#d9822b'],
+    ['🧦','Paires de chaussettes','une paire sèche de rechange les jours de pluie','×2','#d9822b'],
+    ['🤧','Mouchoirs','','×1','#6c6352'],
+    ['🍶','Bouteille vide','à remplir après la sécurité','×1','#3d7a4c'],
+    ['🌧️','Housse anti-pluie','ou sac plastique, pour le sac et le téléphone','×1','#d9822b']
+  ]}
+  var SOI=[
+    ['🥾','Chaussures de rando Decathlon','les plus lourdes : aux pieds. Lundi il pleut à l\'arrivée','1 paire','#6c6352'],
+    ['👖','Pantalon n°1','l\'autre est dans la valise','×1','#2c4f8f'],
+    ['👕','T-shirt','','×1','#3d7a4c'],
+    ['🧶','Pull','','×1','#cf4778'],
+    ['🧥','Veste de pluie','noire, achetée lundi matin','×1','#1f2430'],
+    ['➕','2e couche (au choix)','le pull fin de rechange, porté plutôt que dans la valise','option','#6c6352']
+  ];
+  var who='Matteo', KEY='carnet-lisbonne-affaires-v2', state={};
   try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){state={}}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
-  function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var OWN={ME:'<span class="own m">M</span><span class="own e">E</span>',C:'<span class="own c">à deux</span>','?':'<span class="own x">M ou E</span>'};
 
-  function render(){
-    document.querySelectorAll('.items').forEach(function(ul){
-      var bag=ul.dataset.bag, list=DATA[bag], html='';
-      list.forEach(function(r,i){
-        var id=who+'-'+bag+'-'+i, on=state[id]?' checked':'';
-        html+='<li class="it" style="--i:'+i+';--c:'+r[4]+'"><label><input type="checkbox" data-id="'+id+'"'+on+'>'+
-          '<span class="em" aria-hidden="true">'+r[0]+'</span><span class="tx"><b>'+esc(r[1])+'</b>'+(r[2]?'<small>'+esc(r[2])+'</small>':'')+'</span>'+
-          '<span class="q">'+esc(r[3])+'</span></label></li>';
-      });
-      ul.innerHTML=html;
+  function rows(ul,list,prefix){
+    var html='';
+    list.forEach(function(r,i){
+      var id=prefix+'-'+i, on=state[id]?' checked':'';
+      html+='<li class="it" style="--i:'+i+';--c:'+r[4]+'"><label><input type="checkbox" data-id="'+id+'"'+on+'>'+
+        '<span class="em" aria-hidden="true">'+r[0]+'</span><span class="tx"><b>'+esc(r[1])+'</b>'+(r[5]?'<span class="owns">'+(r[5]=='ME'?'<span class="own m">Matteo '+esc(r[3])+'</span><span class="own e">Enzio '+esc(r[3])+'</span>':OWN[r[5]])+'</span>':'')+(r[2]?'<small>'+esc(r[2])+'</small>':'')+'</span>'+
+        (r[5]=='ME'?'':'<span class="q">'+esc(r[3])+'</span>')+'</label></li>';
     });
+    ul.innerHTML=html;
+  }
+  function render(){
+    rows(document.querySelector('[data-bag="cabine"]'),CABINE,'commun-cabine');
+    rows(document.querySelector('[data-bag="sac"]'),SAC(who),who+'-sac');
+    rows(document.querySelector('[data-bag="soi"]'),SOI,who+'-soi');
     document.querySelectorAll('[data-name]').forEach(function(t){t.textContent=who});
+    document.querySelectorAll('[data-de]').forEach(function(t){t.textContent=(who=='Enzio'?'d\'':'de ')+who});
     count();
   }
   function count(){
@@ -841,9 +894,23 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
     });
   }
   document.addEventListener('change',function(e){
-    var x=e.target; if(!x.matches||!x.matches('.items input'))return;
-    state[x.dataset.id]=x.checked; save(); count();
+    var x=e.target; if(!x.matches)return;
+    if(x.matches('.items input')){state[x.dataset.id]=x.checked;save();count()}
+    if(x.matches('.opts input'))weigh();
   });
+
+  // Estimation du poids de la valise commune (grammes)
+  var BASE=2500+2*(450+300+3*150+3*60+4*50+250+150)+800+400+250+100;
+  function weigh(){
+    var g=BASE+(document.getElementById('o-shoes').checked?800:0)+(document.getElementById('o-pant').checked?900:0)-(document.getElementById('o-layer').checked?600:0);
+    var kg=g/1000, bar=document.getElementById('g-bar'), msg=document.getElementById('g-msg');
+    document.getElementById('g-kg').textContent='≈ '+kg.toFixed(1).replace('.',',')+' kg';
+    bar.style.width=Math.min(100,kg/11*100)+'%';
+    var cls=kg>10?'warn':kg>9.3?'soon':'ok';
+    bar.className=cls; msg.className='pill '+cls;
+    msg.textContent=kg>10?'trop lourd':kg>9.3?'très juste, à peser':'ça passe';
+  }
+
   document.querySelectorAll('.bagbtn').forEach(function(btn){
     var hint=btn.querySelector('.hint'), closed=hint.textContent;
     btn.addEventListener('click',function(){
@@ -857,13 +924,12 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
     b.addEventListener('click',function(){
       who=b.dataset.who;
       document.querySelectorAll('.whobtn').forEach(function(o){o.setAttribute('aria-pressed',o===b)});
-      document.querySelectorAll('.bag').forEach(function(bag){
-        // petite animation : on referme puis on rouvre ce qui était ouvert
+      document.querySelectorAll('#bag-sac,#bag-soi').forEach(function(bag){
         if(bag.classList.contains('open')){bag.classList.remove('open');setTimeout(function(){bag.classList.add('open')},350)}
       });
       render();
     });
   });
-  render();
+  render(); weigh();
 })();
 </script>
