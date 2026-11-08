@@ -354,7 +354,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
   <div class="section-title"><h2>Le voyage, jour par jour</h2><span class="label">Touchez un jour</span></div>
   <nav class="strip" aria-label="Jours du voyage">
     <a class="daytile key" href="#lundi"><span class="bubble">9</span><span class="box"><b>Lundi</b><span>Départ · vol 13h20</span></span></a>
-    <a class="daytile" href="#mardi"><span class="bubble">10</span><span class="box"><b>Mardi</b><span>À planifier</span></span></a>
+    <a class="daytile key" href="#mardi"><span class="bubble">10</span><span class="box"><b>Mardi</b><span>Oceanário · 10h00</span></span></a>
     <a class="daytile" href="#mercredi"><span class="bubble">11</span><span class="box"><b>Mercredi</b><span>À planifier</span></span></a>
     <a class="daytile" href="#jeudi"><span class="bubble">12</span><span class="box"><b>Jeudi</b><span>À planifier</span></span></a>
     <a class="daytile key" href="#vendredi"><span class="bubble">13</span><span class="box"><b>Vendredi</b><span>Check-out · vol 12h45</span></span></a>
@@ -390,7 +390,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
     </a>
     <a class="card tile taped" href="#budget">
       <div class="top"><span class="ico i-orange">💶</span><h3>Budget</h3></div>
-      <p>Auberge 186 € pour 2<br>Taxe de séjour environ 32 €</p>
+      <p>Auberge 186 € pour 2<br>Oceanário 53,82 €<br>Taxe de séjour environ 32 €</p>
       <span class="pill soon">À compléter</span>
     </a>
   </div>
@@ -530,6 +530,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
     <dl class="kv">
       <div><dt>Auberge</dt><dd><b>186 €</b> pour 4 nuits, déjà réservé</dd></div>
       <div><dt>Taxe de séjour</dt><dd>Environ <b>32 €</b> (4 € × 2 personnes × 4 nuits), à payer sur place</dd></div>
+      <div><dt>Oceanário</dt><dd><b>53,82 €</b> pour 2, payé (mardi 10h00)</dd></div>
       <div><dt>Vols</dt><dd>Prix non renseigné</dd></div>
       <div><dt>Activités</dt><dd>À ajouter quand elles seront choisies</dd></div>
     </dl>
@@ -557,8 +558,22 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
 <!-- ============ MARDI / MERCREDI / JEUDI ============ -->
 <section class="page sheet" id="p-mardi" data-route="mardi" hidden>
   <div class="bar"><a class="btn" href="#accueil">← Accueil</a><span class="spacer"></span><a class="btn ghost" href="#lundi">← Lundi</a><a class="btn ghost" href="#mercredi">Mercredi →</a></div>
-  <div class="ptitle"><span class="ico i-pink" style="font-family:var(--display);font-weight:800">10</span><div><h1>Mardi</h1><p>Lisbonne</p></div></div>
-  <div class="empty"><span style="font-size:28px">🗓️</span><b>À planifier</b><p>Les activités du jour seront ajoutées ici. <a href="#activites">Voir les propositions</a></p></div>
+  <div class="ptitle"><span class="ico i-pink" style="font-family:var(--display);font-weight:800">10</span><div><h1>Mardi · Oceanário</h1><p>Lisbonne · journée pluvieuse, visite à l'abri</p></div></div>
+  <ol class="tl">
+    <li><span class="chip">≈ 9:20<small>conseillé</small></span><div class="card step"><span class="ico i-orange">🚇</span><div><b>Métro jusqu'à Oriente</b><span>Depuis Rossio : ligne verte jusqu'à Alameda, puis ligne rouge jusqu'à Oriente, puis 10 min à pied. Environ 30 à 35 min (estimation).</span></div></div></li>
+    <li class="star"><span class="chip">10:00</span><div class="card step"><span class="ico i-blue">🐟</span><div><b>Visite de l'Oceanário de Lisboa</b><span>Billets réservés · Esplanada Dom Carlos I s/nº, 1990-005 Lisboa (Parque das Nações). <a href="https://www.google.com/maps/search/?api=1&query=Esplanada+Dom+Carlos+I+s/n%C2%BA+Lisboa+1990-005" target="_blank" rel="noopener">Itinéraire Google Maps</a></span></div></div></li>
+  </ol>
+  <article class="card taped" style="display:grid;gap:14px">
+    <div class="section-title"><h2>Billets Oceanário</h2><span class="pill ok">✓ Payé</span></div>
+    <dl class="kv">
+      <div><dt>Quand</dt><dd>Mardi 10 novembre 2026 à <b class="mono">10:00</b></dd></div>
+      <div><dt>Réservation</dt><dd><span class="mono">110820754</span></dd></div>
+      <div><dt>Billets</dt><dd>2 adultes (13-64 ans), promo en ligne -10 % · 26,91 € chacun</dd></div>
+      <div><dt>Total</dt><dd><b>53,82 €</b></dd></div>
+      <div><dt>Billets PDF</dt><dd>En pièce jointe de l'email « Résumé de votre achat en Oceanário de Lisboa » (tickets@oceanario.pt, 8 nov), à montrer à l'entrée</dd></div>
+      <div><dt>Contact</dt><dd>info@oceanario.pt</dd></div>
+    </dl>
+  </article>
   <div class="daynav"><a class="btn" href="#lundi">← Lundi</a><a class="btn" href="#mercredi">Mercredi →</a></div>
 </section>
 <section class="page sheet" id="p-mercredi" data-route="mercredi" hidden>
