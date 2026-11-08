@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Itinéraires Lisbonne</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+/* Même thème que le Carnet Lisbonne : fond dégradé clair, cartes claires, blocs rangés. Thème clair unique, par choix. */
+:root{
+  color-scheme:light;
+  --bg:#eaf2ff; --card:rgba(255,255,255,.86); --card-solid:#ffffff; --fg:#0f1f45; --muted:#5a6b8f; --line:#d9e3f5;
+  --blue:#2563eb; --blue-deep:#1e3a8a; --blue-soft:#e3ecff;
+  --orange:#f59e0b; --orange-soft:#fff1d6; --pink:#ec4899; --pink-soft:#fde4f1; --green:#16a34a; --green-soft:#dcf5e3;
+  --red:#dc2626; --red-soft:#fde2e2;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --shadow:0 1px 2px rgba(15,31,69,.05),0 8px 24px rgba(37,99,235,.08);
+}
+*{box-sizing:border-box}
+html{min-height:100%}
+body{color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5;min-height:100vh;
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(60% 50% at 0% 0%,#c9dcff 0%,transparent 70%),
+    radial-gradient(45% 40% at 100% 8%,#ffd9ec 0%,transparent 70%),
+    radial-gradient(50% 45% at 100% 70%,#ffe2bf 0%,transparent 70%),
+    radial-gradient(50% 45% at 0% 85%,#d4f3dd 0%,transparent 70%),
+    linear-gradient(180deg,#eef4ff 0%,#ffffff 55%,#eef4ff 100%);
+  background-attachment:fixed}
+.wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 56px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.1}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+a{color:var(--blue)}
+.page{display:grid;gap:22px}
+.page[hidden]{display:none!important}
+.card{background:var(--card);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.9);border-radius:20px;box-shadow:var(--shadow);padding:18px;min-width:0}
+.section-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.section-title h2{font-size:20px}
+/* Navigation commune aux trois carnets */
+.topnav{position:sticky;top:8px;z-index:30;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.95);border-radius:999px;padding:6px;box-shadow:0 1px 2px rgba(15,31,69,.05),0 8px 24px rgba(37,99,235,.10)}
+.topnav .brand{font-family:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:15px;color:#1e3a8a;padding:0 10px 0 12px;white-space:nowrap;margin-right:auto}
+.topnav .brand i{font-style:normal;color:#ec4899}
+.topnav a{display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;color:#1e3a8a;font-family:"Figtree",ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;white-space:nowrap;transition:background .15s}
+.topnav a:hover{background:#e3ecff}
+.topnav a[aria-current="page"]{background:#2563eb;color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.topnav a:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+@media (max-width:620px){.topnav{border-radius:18px}.topnav .brand{display:none}.topnav a{flex:1;min-width:0;padding:8px 6px;font-size:13px;gap:4px}}
+@media (max-width:360px){.topnav a span{display:none}}
+/* 4 onglets : sur téléphone, icône au-dessus du mot */
+@media (max-width:620px){.topnav{gap:2px;padding:4px}.topnav a{flex-direction:column;gap:1px;padding:6px 2px!important;font-size:12.5px!important;line-height:1.15}.topnav a[aria-current="page"]{text-underline-offset:3px}}
+.hero{border-radius:24px;padding:26px clamp(20px,4vw,36px);color:#fff;display:grid;gap:14px;position:relative;overflow:hidden;
+  background:linear-gradient(120deg,#1e40af 0%,#2563eb 45%,#3b82f6 70%,#60a5fa 100%);box-shadow:0 12px 32px rgba(37,99,235,.25)}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,200,120,.55),rgba(236,72,153,.25) 55%,transparent 70%);pointer-events:none}
+.hero > *{position:relative;z-index:1}
+.hero h1{font-weight:800;font-size:clamp(30px,6.5vw,50px);letter-spacing:-.02em}
+.hero p{margin:0;color:rgba(255,255,255,.9);max-width:62ch}
+.hero .chips{display:flex;gap:8px;flex-wrap:wrap}
+.hero .chips span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600}
+.ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:18px;flex:none}
+.i-blue{background:var(--blue-soft);color:var(--blue)} .i-orange{background:var(--orange-soft)} .i-pink{background:var(--pink-soft)} .i-green{background:var(--green-soft)} .i-red{background:var(--red-soft)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--blue-soft);color:var(--blue);white-space:nowrap}
+.pill.ok{background:var(--green-soft);color:var(--green)} .pill.soon{background:var(--orange-soft);color:#9a5b00} .pill.pink{background:var(--pink-soft);color:#be185d}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:700px){.grid2{grid-template-columns:1fr}}
+/* Vols */
+.flight{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
+.flight .t{font-family:var(--mono);font-size:26px;font-weight:700}
+.flight .c{font-size:13px;color:var(--muted)}
+.flight .line{height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 10px);position:relative}
+.flight .line::after{content:"✈";position:absolute;left:50%;top:50%;transform:translate(-50%,-55%);color:var(--blue);background:var(--card-solid);padding:0 6px;border-radius:6px}
+.note{font-size:13px;color:var(--muted);margin:0}
+/* Bon à savoir */
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:620px){.facts{grid-template-columns:1fr}}
+.fact{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.fact b{display:block;font-family:var(--display);font-size:16px;margin-bottom:2px}
+.fact p{margin:0;color:var(--muted);font-size:14px}
+/* Variantes */
+.picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.picker{grid-template-columns:1fr}}
+.opt{all:unset;box-sizing:border-box;cursor:pointer;background:var(--card);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:20px;padding:18px;box-shadow:var(--shadow);color:var(--fg);font-family:var(--body);text-align:left;min-width:0;display:grid;gap:6px;align-content:start;transition:transform .15s,box-shadow .15s;border:2px solid rgba(255,255,255,.9)}
+.opt:hover{transform:translateY(-2px)}
+.opt:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.opt[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.15),0 14px 30px rgba(37,99,235,.18)}
+.opt .k{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.opt .n{font-family:var(--display);font-weight:800;font-size:19px}
+.opt .d{font-size:14px;color:var(--muted)}
+.opt .sel{font-size:13px;font-weight:700;color:var(--blue);display:none}
+.opt[aria-pressed="true"] .sel{display:block}
+/* Frise de la semaine */
+.strip{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.strip::before{content:"";position:absolute;left:8%;right:8%;top:28px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--pink),var(--orange),var(--green),var(--blue))}
+.daytile{position:relative;display:grid;gap:8px;text-decoration:none;color:var(--fg);justify-items:center;text-align:center}
+.daytile .bubble{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--card-solid);border:3px solid var(--blue);font-family:var(--display);font-weight:800;font-size:21px;color:var(--blue-deep);box-shadow:var(--shadow)}
+.daytile.key .bubble{background:var(--blue);color:#fff}
+.daytile .box{width:100%;background:var(--card);border:1px solid rgba(255,255,255,.9);border-radius:16px;padding:10px;box-shadow:var(--shadow);display:grid;gap:2px;transition:transform .15s;min-width:0}
+.daytile:hover .box{transform:translateY(-2px)}
+.daytile b{font-family:var(--display);font-size:15px}
+.daytile span.t{font-size:13px;color:var(--muted);overflow-wrap:anywhere;line-height:1.3}
+.daytile:focus-visible{outline:3px solid var(--orange);outline-offset:4px;border-radius:16px}
+@media (max-width:700px){.strip{grid-template-columns:1fr}.strip::before{left:28px;right:auto;top:20px;bottom:20px;width:3px;height:auto;background:linear-gradient(180deg,var(--blue),var(--pink),var(--orange),var(--green),var(--blue))}
+  .daytile{grid-template-columns:56px 1fr;justify-items:stretch;text-align:left;align-items:center;gap:12px}}
+/* Journées */
+.day{display:grid;gap:14px;scroll-margin-top:84px}
+.dayhead{display:flex;align-items:center;gap:14px}
+.dayhead .ico{width:52px;height:52px;border-radius:16px;font-family:var(--display);font-weight:800;font-size:22px;color:var(--blue-deep)}
+.dayhead h2{font-size:clamp(22px,4.5vw,28px)}
+.dayhead p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.dayhead .label{display:block;margin-bottom:2px}
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:12px;position:relative}
+.tl::before{content:"";position:absolute;left:39px;top:16px;bottom:16px;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--blue),var(--pink),var(--orange))}
+.tl li{display:grid;grid-template-columns:80px 1fr;gap:14px;align-items:start;position:relative}
+.tl .chip{justify-self:center;z-index:1;background:var(--card-solid);border:2px solid var(--blue);color:var(--blue-deep);border-radius:12px;padding:6px 8px;font-family:var(--mono);font-weight:700;font-size:13px;text-align:center;min-width:70px;line-height:1.2;margin-top:10px}
+.tl li.s-fly .chip{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tl li.s-opt .chip{border-style:dashed}
+.tl .step{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding:14px 16px}
+.tl .step .ico{width:40px;height:40px}
+.tl .step b{display:block;font-size:15px}
+.tl .step .n{color:var(--muted);font-size:14px;margin-top:2px}
+.tl .go{display:inline-flex;gap:6px;align-items:baseline;margin-top:8px;font-size:13px;font-weight:600;background:var(--blue-soft);color:var(--blue-deep);border-radius:10px;padding:4px 10px}
+.tl .go::before{content:"→";font-weight:800;color:var(--blue)}
+.tl .step .pill{margin-left:6px;vertical-align:2px}
+@media (max-width:480px){.tl::before{left:29px}.tl li{grid-template-columns:60px 1fr;gap:10px}.tl .chip{min-width:56px;font-size:12px;padding:5px 4px}.tl .step{grid-template-columns:1fr;padding:12px 14px}.tl .step .ico{display:none}}
+.warn{border-radius:14px;padding:12px 14px;background:var(--orange-soft);font-size:14px;display:flex;gap:10px}
+/* Lieux couverts */
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:13px;padding:4px 10px;border-radius:999px;background:var(--green-soft);color:var(--green);font-weight:600}
+.tag.off{background:var(--pink-soft);color:#be185d}
+/* Temps de trajet */
+.times{display:grid;gap:0;padding:6px 18px}
+.trow{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) 92px;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px;align-items:baseline}
+.trow:first-child{border-top:0}
+.trow .m{font-family:var(--mono);font-weight:700;text-align:right;color:var(--blue);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trow .h{color:var(--muted)}
+@media (max-width:520px){.trow{grid-template-columns:minmax(0,1fr) auto}.trow .h{grid-column:1/-1;grid-row:2;font-size:13px}}
+.foot{color:var(--muted);font-size:12px;text-align:center;margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ===== THEME PAPIER : carnet de voyage en papier (lignes, quadrillage, une page par section). Thème clair unique, par choix. ===== */
+:root{
+  color-scheme:light;
+  --bg:#e6ddcc; --card:#fffef8; --card-solid:#fffdf5; --fg:#26324a; --muted:#6c6352; --line:#dcd1bb;
+  --blue:#2c4f8f; --blue-deep:#1e365f; --blue-soft:#e3eaf5;
+  --orange:#d9822b; --orange-soft:#fdf0bf; --pink:#cf4778; --pink-soft:#f9dde7; --green:#3d7a4c; --green-soft:#dcedd5;
+  --red:#c0392b; --red-soft:#f9ddd7;
+  --display:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --body:"Nunito",ui-rounded,system-ui,sans-serif;
+  --mono:"Courier Prime","Courier New",ui-monospace,monospace;
+  --shadow:0 1px 1px rgba(70,50,20,.08),0 4px 10px rgba(70,50,20,.10);
+  --paper:#fffdf6; --rule:rgba(86,124,190,.22); --margin:rgba(206,72,72,.55); --grid:rgba(86,124,190,.11);
+  --hl:rgba(255,222,77,.75); --hl-green:rgba(150,215,135,.7); --hl-pink:rgba(255,160,196,.6); --hl-orange:rgba(255,190,115,.7); --hl-red:rgba(255,150,140,.55);
+  --hand:255px 14px 225px 14px/14px 225px 14px 255px;
+  --surface:#fffdf6; --accent:#2c4f8f; --home:#2c4f8f; --on-accent:#fff;
+}
+body{font-family:var(--body);font-size:17px;line-height:1.5;color:var(--fg);
+  background-color:var(--bg);
+  background-image:radial-gradient(rgba(120,90,50,.08) 1px,transparent 1.3px),radial-gradient(rgba(255,255,255,.4) 1px,transparent 1.3px);
+  background-size:7px 7px,11px 11px;background-position:0 0,3px 5px;background-attachment:scroll}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:0;color:var(--blue-deep)}
+a{color:var(--blue);text-underline-offset:3px}
+.mono{font-family:var(--mono)}
+.label{font-family:var(--body);font-size:14px;letter-spacing:.03em;text-transform:none;color:var(--muted);font-weight:400}
+.note,.foot{font-size:15px}
+.foot{color:var(--muted)}
+
+/* Une feuille de carnet : lignes bleues, marge rouge, trous de reliure */
+.sheet{position:relative;display:grid;gap:22px;align-content:start;min-width:0;
+  background-color:var(--paper);
+  background-image:linear-gradient(90deg,transparent 0 62px,var(--margin) 62px 64px,transparent 64px),
+    repeating-linear-gradient(180deg,transparent 0 31px,var(--rule) 31px 32px);
+  background-position:0 0,0 18px;
+  border-radius:3px 12px 12px 3px;
+  box-shadow:0 1px 0 #ece3d0,0 3px 0 #faf6ec,0 4px 0 #e6dcc8,0 6px 0 #f8f3e7,0 7px 0 #e2d8c3,0 14px 28px rgba(70,50,20,.2);
+  padding:34px clamp(16px,3.2vw,34px) 38px 86px}
+.sheet::before{content:"";position:absolute;left:20px;top:22px;bottom:22px;width:18px;pointer-events:none;
+  background:radial-gradient(circle at 9px 9px,var(--bg) 0 5.5px,rgba(80,60,30,.28) 6px 6.8px,transparent 7.3px) 0 0/18px 48px repeat-y}
+@media (max-width:620px){
+  .sheet{padding:24px 14px 28px 40px;
+    background-image:linear-gradient(90deg,transparent 0 26px,var(--margin) 26px 27.5px,transparent 27.5px),repeating-linear-gradient(180deg,transparent 0 31px,var(--rule) 31px 32px)}
+  .sheet::before{left:6px;width:14px;background-size:14px 44px;
+    background-image:radial-gradient(circle at 7px 7px,var(--bg) 0 4px,rgba(80,60,30,.28) 4.5px 5.2px,transparent 5.7px)}
+}
+
+/* Blocs : petites fiches quadrillées posées sur la page */
+.card{background-color:#fffefa;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:16px 16px;
+  border:1px solid #e4d9c3;border-radius:4px;box-shadow:var(--shadow);backdrop-filter:none;-webkit-backdrop-filter:none}
+.taped{position:relative}
+.taped::before{content:"";position:absolute;z-index:2;top:-11px;left:50%;width:86px;height:22px;transform:translateX(-50%) rotate(-3deg);
+  background:rgba(246,212,110,.75);box-shadow:0 1px 2px rgba(0,0,0,.08);pointer-events:none;
+  clip-path:polygon(0 8%,4% 0,8% 10%,12% 0,100% 0,96% 12%,100% 25%,96% 40%,100% 55%,96% 72%,100% 88%,95% 100%,0 100%,4% 85%,0 70%,4% 52%,0 35%,4% 20%)}
+.taped:nth-child(3n+2)::before{background:rgba(240,150,180,.6);transform:translateX(-50%) rotate(2.5deg)}
+.taped:nth-child(3n)::before{background:rgba(140,190,225,.6);transform:translateX(-50%) rotate(-1.5deg)}
+.taped:nth-child(odd){transform:rotate(-.35deg)}
+.taped:nth-child(even){transform:rotate(.4deg)}
+
+/* Couverture / étiquette en papier kraft */
+.hero{background-color:#d5b98a;color:var(--fg);border:1px solid #bfa071;border-radius:8px;box-shadow:var(--shadow),inset 0 0 40px rgba(110,75,25,.18);
+  background-image:repeating-linear-gradient(112deg,rgba(255,255,255,.06) 0 2px,transparent 2px 6px),radial-gradient(rgba(90,60,20,.14) 1px,transparent 1.4px);
+  background-size:auto,5px 5px}
+.hero::after{right:20px;top:20px;width:22px;height:22px;border-radius:50%;background:var(--bg);box-shadow:inset 0 1px 3px rgba(0,0,0,.35),0 0 0 6px #c7a874,0 0 0 7px #ab8a57}
+.hero .label,.hero .sub,.hero p{color:#4a3a22!important}
+.hero h1,.hero .route{font-family:var(--display);color:#1d2d4d;letter-spacing:0;font-size:clamp(42px,9vw,72px);line-height:1}
+.hero .route svg{color:var(--red)}
+.hero .chips span,.hero .legend span{background:rgba(255,253,246,.7);border:1.5px dashed rgba(74,58,34,.5);color:#3a2d18;font-weight:400;font-size:15px;border-radius:4px}
+
+/* Surligneur */
+.pill{font-family:var(--body);font-weight:400;font-size:15px;border-radius:2px;padding:1px 8px;color:var(--fg);
+  background:linear-gradient(transparent 12%,var(--hl) 12% 88%,transparent 88%)}
+.pill.ok{background:linear-gradient(transparent 12%,var(--hl-green) 12% 88%,transparent 88%);color:#1f4a2a}
+.pill.warn{background:linear-gradient(transparent 12%,var(--hl-red) 12% 88%,transparent 88%);color:#8a1f14}
+.pill.soon{background:linear-gradient(transparent 12%,var(--hl-orange) 12% 88%,transparent 88%);color:#6a3a00}
+.pill.pink{background:linear-gradient(transparent 12%,var(--hl-pink) 12% 88%,transparent 88%);color:#8a1846}
+.section-title{align-items:center}
+.section-title h2{font-size:clamp(28px,5vw,34px);padding:0 6px;margin-left:-6px;background:linear-gradient(transparent 58%,var(--hl) 58% 92%,transparent 92%)}
+.ico{border-radius:50%;border:1.5px dashed rgba(38,50,74,.35)}
+.i-blue{background:#e3eaf5} .i-orange{background:#fdf0bf} .i-pink{background:#f9dde7} .i-green{background:#dcedd5}
+
+/* Frise des jours : trait de crayon et dates entourées */
+.strip::before{background:none!important;height:0;border-top:2px dashed rgba(38,50,74,.4);border-radius:0}
+.daytile .bubble{border-radius:var(--hand);border:2px solid var(--blue-deep);background:var(--paper);color:var(--blue-deep);font-family:var(--display);font-size:30px;box-shadow:none}
+.daytile.key .bubble{background:var(--hl);color:var(--fg)}
+.daytile .box{background-color:#fffefa;border:1px solid #e4d9c3;border-radius:4px;box-shadow:var(--shadow);backdrop-filter:none}
+.daytile b{font-family:var(--display);font-size:24px;color:var(--blue-deep)}
+.daytile span,.daytile span.t{font-size:15px}
+@media (max-width:700px){.strip::before{width:0;height:auto;border-top:0;border-left:2px dashed rgba(38,50,74,.4)}}
+
+/* Chronologie d'une journée */
+.tl::before{background:none;width:0;border-left:2px dashed rgba(38,50,74,.38);border-radius:0}
+.tl .chip{background:var(--paper);border:2px solid var(--blue-deep);border-radius:var(--hand);font-family:var(--mono);color:var(--blue-deep);font-size:14px}
+.tl .chip small{font-family:var(--body);font-size:12px;font-weight:400}
+.tl li.star .chip,.tl li.s-fly .chip{background:var(--hl);color:var(--fg);border-color:var(--fg)}
+.tl li.star .chip small{color:var(--muted)}
+.tl li.hot .chip{background:#fbe0dc;color:var(--red);border-color:var(--red)}
+.tl li.hot .chip small{color:var(--red)}
+.tl .step b{font-size:18px;font-weight:400;color:var(--blue-deep)}
+.tl .step span,.tl .step .n{font-size:16px}
+.tl li.hot .step b{color:var(--red)}
+
+/* Boutons dessinés à la main */
+.btn,.btn2,.copy{font-family:var(--body);font-weight:400;font-size:16px;background:var(--paper);color:var(--blue-deep);border:1.5px solid var(--blue-deep);border-radius:var(--hand);box-shadow:2px 2px 0 rgba(30,54,95,.22)}
+.btn.ghost{border-style:dashed;box-shadow:none;background:transparent}
+.copy{font-size:14px;padding:1px 8px;background:var(--hl)}
+
+/* Vols */
+.flight .t{font-family:var(--mono);color:var(--blue-deep)}
+.flight .c{font-size:15px}
+.flight .line{background:repeating-linear-gradient(90deg,rgba(38,50,74,.45) 0 6px,transparent 6px 11px)}
+.flight .line::after{background:#fffefa;color:var(--red)}
+
+/* Notes collantes */
+.callout,.warn{background:#fff3a3;border-radius:2px;box-shadow:0 2px 6px rgba(70,50,20,.18);transform:rotate(-.6deg);font-size:16px}
+.callout.red{background:#ffd6dc}
+.empty{border:2px dashed rgba(38,50,74,.32);border-radius:var(--hand);background:rgba(255,253,246,.6)}
+.empty b{font-family:var(--display);font-size:30px;color:var(--blue-deep)}
+
+/* Barre de navigation commune : onglets du carnet */
+.topnav{background:var(--paper);border:1px solid #e0d5be;border-radius:6px;box-shadow:var(--shadow);backdrop-filter:none;-webkit-backdrop-filter:none}
+.topnav .brand{font-family:var(--display);font-size:26px;font-weight:700;color:var(--blue-deep)}
+.topnav .brand i{color:var(--red)}
+.topnav a{font-family:var(--body);font-weight:400;font-size:18px;color:var(--fg);border-radius:4px}
+.topnav a:hover{background:rgba(255,222,77,.35)}
+.topnav a[aria-current="page"]{background:linear-gradient(transparent 10%,var(--hl) 10% 90%,transparent 90%);color:var(--fg);box-shadow:none;text-decoration:underline wavy var(--red);text-decoration-thickness:1.5px;text-underline-offset:5px}
+@media (max-width:620px){.topnav{border-radius:6px}.topnav a{font-size:16px}}
+.pill{width:fit-content;justify-self:start}
+.daytile .bubble{border-radius:58% 42% 55% 45%/48% 56% 44% 52%}
+/* Texte plus lisible : police Nunito, encre plus foncée */
+body{font-size:16px;line-height:1.55;color:#1f2a40}
+:root{--muted:#5a5246}
+.tl .step b{font-weight:700;font-size:16px}
+.tl .step span,.tl .step .n{font-size:15px}
+.pill,.btn,.btn2,.copy,.topnav a,.chip,.book{font-weight:600}
+.pill{font-size:13px}
+.topnav a{font-size:15px}
+.label{font-size:12.5px}
+.note,.foot{font-size:14px}
+.tl .chip small{font-size:11px}
+/* Itinéraires : une feuille par section et par jour */
+.wrap{max-width:960px;gap:30px!important;display:grid}
+#days{gap:30px!important}
+.hero h1{font-size:clamp(40px,8vw,64px)}
+.hero p{font-size:18px}
+h3{font-size:26px!important}
+.opt{background-color:#fffefa;border:1.5px solid #e4d9c3;border-radius:4px;box-shadow:var(--shadow)}
+.opt:hover{transform:rotate(0) translateY(-2px)}
+.opt[aria-pressed="true"]{border:2.5px solid var(--red);border-radius:var(--hand);box-shadow:0 6px 16px rgba(192,57,43,.18)}
+.opt .k{font-family:var(--mono);font-size:13px}
+.opt .n{font-family:var(--display);font-size:30px;font-weight:700;color:var(--blue-deep);line-height:1.05}
+.opt .d{font-size:16px}
+.opt .sel{color:var(--red);font-weight:400;font-size:16px}
+.fact b{font-family:var(--display);font-size:26px;font-weight:700;color:var(--blue-deep)}
+.fact p{font-size:16px}
+.dayhead h2{font-size:clamp(34px,6vw,44px)}
+.dayhead p{font-size:16px}
+.dayhead .ico{width:58px;height:58px;font-size:30px;font-family:var(--display)}
+.tl .go{font-size:15px;font-weight:400;background:linear-gradient(transparent 12%,var(--hl) 12% 88%,transparent 88%);border-radius:2px;color:var(--fg)}
+.tl .go::before{color:var(--red)}
+.tag{font-weight:400;font-size:15px;border-radius:2px;background:linear-gradient(transparent 12%,var(--hl-green) 12% 88%,transparent 88%);color:#1f4a2a}
+.tag.off{background:linear-gradient(transparent 12%,var(--hl-pink) 12% 88%,transparent 88%);color:#8a1846}
+.trow{border-top:1px dashed rgba(38,50,74,.22);font-size:16px}
+.trow .m{font-family:var(--mono);color:var(--red)}
+.day{scroll-margin-top:84px}
+.warn.rain{background:#dbeafc;transform:rotate(.5deg);margin-top:12px}
+.warn.rain b{color:var(--blue-deep)}
+</style>
+
+<div class="wrap" id="top">
+<nav class="topnav" aria-label="Les quatre carnets"><span class="brand">Lisbonne <i>·</i> 9 → 13 nov.</span><a href="index.html">🧳 <span>Carnet</span></a><a href="#top" aria-current="page">🧭 <span>Itinéraires</span></a><a href="3-activites.html">📍 <span>Activités</span></a><a href="4-affaires.html">🎒 <span>Affaires</span></a></nav>
+
+  <header class="hero">
+    <div class="label" style="color:rgba(255,255,255,.8)">Carnet d'itinéraires · Matteo &amp; Enzio</div>
+    <h1>Lisbonne, du 9 au 13 novembre</h1>
+    <p>Trois façons d'organiser les 3 jours pleins (mar 10, mer 11, jeu 12), plus l'arrivée du lundi et le départ du vendredi. La semaine s'annonce pluvieuse (orages lundi, averses ensuite) : la variante A est pensée pour la pluie, et chaque jour a son plan B. On garde le jour le plus sec pour Sintra ou la côte, et on décide la veille selon la météo.</p>
+    <div class="chips"><span>3 variantes</span><span>5 jours</span><span>Base : gare du Rossio</span><span>☔ Plan B chaque jour</span></div>
+  </header>
+
+  <section class="sheet">
+  <div class="section-title"><h2>Les vols</h2><span class="label">Ryanair</span></div>
+  <div class="grid2">
+    <article class="card taped" style="display:grid;gap:12px">
+      <div class="section-title"><h3 style="font-size:17px">Aller</h3><span class="pill">FR486 · lun 9 nov</span></div>
+      <div class="flight"><div><div class="t">13:20</div><div class="c">MRS · T2</div></div><div class="line"></div><div style="text-align:right"><div class="t">14:45</div><div class="c">LIS · T2</div></div></div>
+      <p class="note">Terminal 2 → Terminal 2 · porte fermée à 12:50</p>
+    </article>
+    <article class="card taped" style="display:grid;gap:12px">
+      <div class="section-title"><h3 style="font-size:17px">Retour</h3><span class="pill">FR487 · ven 13 nov</span></div>
+      <div class="flight"><div><div class="t">12:45</div><div class="c">LIS</div></div><div class="line"></div><div style="text-align:right"><div class="t">16:05</div><div class="c">MRS</div></div></div>
+      <p class="note">Être à l'aéroport vers 11:00 · porte fermée vers 12:15</p>
+    </article>
+  </div>
+
+  <div class="section-title"><h2>Bon à savoir</h2></div>
+  <div class="facts">
+    <div class="card fact taped"><span class="ico i-orange">🚉</span><div><b>Base : gare du Rossio</b><p>L'auberge est dans la gare : le train pour Sintra part d'en bas, et le métro vert est à 2 min.</p></div></div>
+    <div class="card fact taped"><span class="ico i-pink">🌅</span><div><b>Nuit à 17h20</b><p>Coucher du soleil vers 17h20 mi-novembre. Les sites en plein air se font avant, les points de vue au coucher.</p></div></div>
+    <div class="card fact taped"><span class="ico i-blue">🎫</span><div><b>Carte navegante</b><p>Une carte rechargeable (zapping) au distributeur du métro sert pour métro, tram, bus et trains de Sintra et Cascais.</p></div></div>
+    <div class="card fact taped"><span class="ico i-green">📅</span><div><b>À réserver la veille</b><p>Palácio da Pena (billet à horaire), Jerónimos et Castelo en ligne pour éviter les files.</p></div></div>
+  </div>
+  <div class="section-title"><h2>Semaine pluvieuse</h2><span class="label">Prévisions : orages lundi, averses mar–ven, 16 à 20 °C</span></div>
+  <div class="facts">
+    <div class="card fact taped"><span class="ico i-green">👟</span><div><b>Des semelles qui accrochent</b><p>Les trottoirs en calçada, les petits pavés blancs, deviennent une patinoire quand ils sont mouillés, surtout en descente dans l'Alfama. Baskets à semelle crantée, pas de semelles lisses.</p></div></div>
+    <div class="card fact taped"><span class="ico i-blue">🧥</span><div><b>K-way plutôt que parapluie</b><p>Le vent du Tejo retourne les parapluies. Une veste imperméable à capuche, plus un petit parapluie pliant pour les averses calmes.</p></div></div>
+    <div class="card fact taped"><span class="ico i-orange">🚕</span><div><b>Taxi ou Bolt pas chers</b><p>Une course dans le centre coûte environ 5 à 8 €. À deux, ça vaut le coup quand il tombe des cordes ou pour éviter une montée sous l'averse.</p></div></div>
+    <div class="card fact taped"><span class="ico i-pink">🎟️</span><div><b>Réserver les lieux couverts</b><p>Les jours de pluie, l'Oceanário et les musées se remplissent : billets en ligne la veille. Attention, presque tous les musées ferment le lundi.</p></div></div>
+  </div>
+
+  </section>
+
+  <section class="sheet">
+  <div class="section-title"><h2>Choisir une variante</h2><span class="label">Trois programmes pour mar, mer, jeu · météo du 6 nov.</span></div>
+  <div class="picker" id="picker" role="group" aria-label="Variantes"></div>
+
+  <div class="section-title"><h2 id="vtitle">La semaine</h2><span class="label">Touchez un jour</span></div>
+  <nav class="strip" id="strip" aria-label="Jours du programme"></nav>
+  </section>
+
+  <div id="days" style="display:grid;gap:30px"></div>
+
+  <section class="sheet" id="cover" style="display:grid;gap:10px"></section>
+
+  <section class="sheet">
+  <div class="section-title"><h2>Temps de trajet depuis l'auberge</h2><span class="label">Repères</span></div>
+  <div class="card times" id="times"></div>
+  </section>
+
+  <p class="foot">Horaires des lieux et lignes de bus à revérifier sur place (sites officiels, appli Carris Metropolitana). Les durées sont des estimations porte à porte.</p>
+</div>
+
+<script>
+const PLACES={
+ "pink-street":"Pink Street","oceanario":"Oceanário","regaleira":"Quinta da Regaleira","ponte-25-abril":"Ponte 25 de Abril",
+ "praia-ursa":"Praia da Ursa","bairro-alto":"Bairro Alto","cascais":"Cascais","panteao":"Panteão Nacional","carcavelos":"Praia de Carcavelos",
+ "praca-comercio":"Praça do Comércio","belem":"Belém","eduardo-vii":"Parque Eduardo VII","guincho":"Praia do Guincho","aqueduto":"Aqueduto das Águas Livres",
+ "time-out":"Time Out Market","castelo":"Castelo de São Jorge","santa-justa":"Elevador de Santa Justa","padrao":"Padrão dos Descobrimentos",
+ "jeronimos":"Mosteiro dos Jerónimos","senhora-monte":"Miradouro da Senhora do Monte","santa-luzia":"Miradouro de Santa Luzia","se":"Sé de Lisboa",
+ "rossio":"Praça do Rossio","pena":"Palácio da Pena","pasteis":"Pastéis de Belém","lx":"LX Factory","roca":"Cabo da Roca","azulejo":"Museu do Azulejo",
+ "alfama":"Alfama","pimpam":"Pim Pam Café"
+};
+// Chaque étape : [heure, titre, note, trajet, ids, drapeau]
+const DAYS={
+ arrivee:{date:"lun 9",title:"Arrivée et première soirée à l'abri",from:"Lundi, gros orages annoncés : on reste près de l'auberge, avec des étapes couvertes et peu de marche.",steps:[
+  ["13:20","Décollage de Marseille (FR486)","Terminal 2, porte fermée à 12:50. Avec les orages, un léger retard est possible.","",[],"fly"],
+  ["14:45","Atterrissage à Lisbonne","Bagage cabine seulement, donc sortie rapide. Sortir les imperméables du sac avant le métro.","",[],"fly"],
+  ["15:00","Métro jusqu'à l'auberge","Acheter la carte navegante au distributeur et la charger en zapping. Tout est en souterrain, on ne marche que 2 min dehors à Rossio.","Ligne rouge jusqu'à Alameda, puis verte jusqu'à Rossio · ~30 min",[]],
+  ["15:45","Check-in au Lisbon Destination Hostel","Check-in possible dès 15h, on pose les sacs.","",["rossio"]],
+  ["16:30","Elevador da Glória et Igreja de São Roque","Le funiculaire monte au Bairro Alto sans marcher sous la pluie. Juste en haut, l'église São Roque et ses chapelles couvertes d'or (gratuite, ouverte le lundi après-midi, à vérifier).","3 min à pied jusqu'à Restauradores + 3 min de funiculaire",[]],
+  ["17:30","Livraria Bertrand et café au chaud dans le Chiado","La plus vieille librairie du monde encore ouverte, puis un café à l'intérieur pendant que la nuit tombe.","8 min à pied en descente",[]],
+  ["19:00","Dîner au Time Out Market","Marché couvert avec plein de stands : parfait un soir d'orage.","Métro vert Baixa-Chiado → Cais do Sodré · 3 min",["time-out"]],
+  ["20:30","Verre sur la Pink Street si l'orage s'est calmé","Sinon on reste au marché, puis retour direct en métro (Cais do Sodré → Rossio, 5 min).","2 min à pied",["pink-street"],"opt"]
+ ],warn:"Si ça se dégage : remplacer São Roque et le Chiado par l'Elevador de Santa Justa et la Praça do Comércio au coucher du soleil (17h20), comme prévu au départ.",rain:"S'il tombe des cordes, prendre un taxi ou un Bolt (environ 5 à 8 €) entre l'auberge et le Time Out, et sauter le Chiado. Lundi, la plupart des musées sont fermés : pas de repli musée ce jour-là."},
+ alfama:{title:"Graça, Alfama et le château",from:"Départ : tram 28 à Martim Moniz (5 min de l'auberge). On monte en tram et on fait tout le reste en descente, plus sûr sur les pavés mouillés.",steps:[
+  ["09:00","Miradouro da Senhora do Monte","Le point le plus haut, vue à 360°. Seulement s'il ne pleut pas, sinon on va directement au Panteão.","Tram 28 depuis Martim Moniz · ~15 min",["senhora-monte"],"opt"],
+  ["10:00","Panteão Nacional","Ouvre à 10h, tout est à l'intérieur. La terrasse du dôme se fait entre deux averses.","15 min à pied en descendant par Graça",["panteao"]],
+  ["11:00","Museu Nacional do Azulejo","Musée des carreaux peints, à l'abri. À faire s'il pleut (sauf si déjà vu mercredi).","Bus 759 ou taxi · ~10 min",["azulejo"],"opt"],
+  ["12:45","Déjeuner dans l'Alfama","Petites tascas dans les ruelles, on s'installe au chaud.","Taxi ou bus · ~10 min (ou 10 min à pied depuis le Panteão sans le musée)",["alfama"]],
+  ["14:15","Ruelles de l'Alfama et Miradouro de Santa Luzia","Escaliers, linge aux fenêtres, terrasse aux azulejos. Les pavés mouillés glissent beaucoup : bonnes semelles et on évite les escaliers les plus raides.","5 min à pied",["santa-luzia"]],
+  ["15:15","Sé de Lisboa","La cathédrale-forteresse, à l'intérieur. Le tram 28 passe devant.","8 min à pied en descendant",["se"]],
+  ["16:00","Castelo de São Jorge jusqu'au coucher du soleil","Remparts en plein air : à faire au moment le plus sec. Coucher du soleil à 17h20, fermeture vers 18h.","10 min à pied en montée, ou bus 737",["castelo"]],
+  ["19:00","Dîner fado dans l'Alfama","Retour à l'auberge en 15 min à pied, tout en descente (taxi s'il pleut).","",[]]
+ ],rain:"S'il pleut fort toute la journée : Panteão, Sé et Museu do Azulejo, en taxi entre les trois, et on garde le château pour une éclaircie un autre jour."},
+ belem:{title:"Belém et l'ouest",from:"Départ : tram 15E à Praça da Figueira, à 2 min de l'auberge. Presque tout se visite à l'intérieur.",steps:[
+  ["08:45","Tram 15E jusqu'à Belém","Alternative : métro vert jusqu'à Cais do Sodré puis train, 7 min, tout à l'abri.","Tram 15E · ~35 min",[]],
+  ["09:30","Petit-déj aux Pastéis de Belém","Ouvert dès 8h, pastéis de nata chauds, on s'assoit dans les salles du fond. L'auberge ne sert pas de petit-déj.","",["pasteis","belem"]],
+  ["10:00","Mosteiro dos Jerónimos","Ouvre à 9h30. Réserver le cloître en ligne. Le cloître est entouré d'arcades, on reste au sec.","3 min à pied",["jeronimos"]],
+  ["11:30","Museu de Marinha","Dans l'aile ouest du monastère : bateaux, maquettes et barques royales. Bon repli si l'averse dure.","1 min à pied",[],"opt"],
+  ["12:15","Padrão dos Descobrimentos et bord du Tejo","Vue sur le Ponte 25 de Abril. En plein air : 15 min pendant une éclaircie, sinon on le voit depuis le tram.","10 min à pied par le passage souterrain",["padrao","ponte-25-abril"]],
+  ["13:00","Déjeuner à Belém","","",[]],
+  ["14:30","LX Factory","Boutiques, cafés et la librairie Ler Devagar dans d'anciennes usines : on y passe facilement 2 h au sec.","Tram 15E jusqu'à Calvário · ~10 min",["lx"]],
+  ["16:30","Cais do Sodré, Time Out Market et Pink Street","Goûter ou dîner au marché couvert. Si c'est déjà fait lundi, aller plutôt dîner au Bairro Alto.","Tram 15E ou train · ~15 min",["time-out","pink-street"]],
+  ["19:30","Retour à l'auberge","","Métro vert Cais do Sodré → Rossio · 5 min",[]]
+ ],rain:"Si l'averse ne s'arrête pas : le Museu Nacional dos Coches (carrosses royaux, ouvert du mardi au dimanche) est à 5 min des Pastéis. Le MAAT, lui, est fermé le mardi."},
+ abri:{title:"Azulejos et Oceanário, journée à l'abri",from:"Départ : bus 759 à Restauradores, à 3 min de l'auberge. Il passe devant le musée puis continue jusqu'à la gare d'Oriente.",steps:[
+  ["09:15","Petit-déj à la Confeitaria Nacional","Pâtisserie de 1829 sur la Praça da Figueira, on s'assoit à l'intérieur.","2 min à pied",[]],
+  ["10:00","Museu Nacional do Azulejo","Ouvre à 10h (fermé le lundi). Carreaux peints, grand panorama de Lisbonne en azulejos et église dorée. Compter 1 h 30.","Bus 759 · ~20 min, ou taxi ~10 min",["azulejo"]],
+  ["12:00","Déjeuner au café du musée","Ou une tasca du quartier si la pluie se calme.","",[]],
+  ["13:15","Bus 759 jusqu'à Oriente","","Bus 759 · ~20 min",[]],
+  ["13:45","Oceanário de Lisboa","L'un des plus grands aquariums d'Europe. Réserver en ligne : les jours de pluie, tout Lisbonne a la même idée. 2 à 3 h.","De la gare d'Oriente, ~10 min à pied en traversant le centre commercial Vasco da Gama",["oceanario"]],
+  ["16:30","Pavilhão do Conhecimento ou centre Vasco da Gama","Le musée des sciences interactif est juste à côté de l'Oceanário. Le centre commercial sert d'abri en attendant la fin d'une averse.","5 min à pied",[],"opt"],
+  ["17:30","Retour en métro","Ligne rouge puis verte, tout en souterrain jusqu'à Rossio.","Métro · ~25 min",[]],
+  ["19:30","Dîner au chaud dans la Baixa","Une tasca ou une cervejaria près de l'auberge, sans reprendre les transports.","5 min à pied",[]]
+ ],rain:"Si l'orage est très violent : taxi direct jusqu'à l'Oceanário (~15 €) et Pavilhão do Conhecimento à côté, ce qui remplit la journée sans presque sortir."},
+ sintra:{title:"Sintra",from:"Départ : le train pour Sintra part de la gare du Rossio, sous l'auberge. À garder pour le jour le plus sec.",steps:[
+  ["08:30","Train Rossio → Sintra","Trains toutes les 20 à 30 min.","Train · ~40 min",[]],
+  ["09:20","Montée vers la Pena : sentier ou bus 434","Par temps sec, le sentier balisé dans la forêt (environ 1 h, 250 m de dénivelé). S'il a plu, il devient boueux et glissant : prendre le bus 434 depuis la gare (~20 min).","15 min de la gare au village, puis sentier ou bus",[]],
+  ["10:30","Palácio da Pena et son parc","Billet à horaire, à réserver la veille. Le palais est couvert, mais le parc et les terrasses sont en plein air et souvent dans le brouillard quand il pleut.","",["pena"]],
+  ["13:00","Descente et déjeuner au village","Goûter les travesseiros, la pâtisserie locale.","~40 min à pied, ou bus 434",[]],
+  ["14:30","Quinta da Regaleira","Le puits initiatique en spirale, les grottes et les tunnels. Compter 2 h. Marches glissantes par temps humide.","10 min à pied du centre",["regaleira"]],
+  ["16:45","Train retour","On arrive directement sous l'auberge.","Train · ~40 min",[]],
+  ["18:00","Soirée libre en ville","Bairro Alto, ou un dîner au chaud près de l'auberge.","",[]]
+ ],warn:"Par beau temps, variante possible : après la Pena, bus 1253 jusqu'au Cabo da Roca (~40 min) pour le coucher du soleil, à la place de la Regaleira.",rain:"Sous une vraie pluie, Sintra perd beaucoup : brouillard, pas de vue, sentiers glissants. Dans ce cas, faire la journée à l'abri (Azulejo et Oceanário) et garder Sintra pour un jour plus sec."},
+ cote:{title:"La côte : Carcavelos, Cascais, Guincho, Cabo da Roca",from:"Départ : métro vert jusqu'à Cais do Sodré (5 min), puis train de la ligne de Cascais. Uniquement par temps sec.",steps:[
+  ["08:45","Métro + train vers Carcavelos","","Métro 5 min + train ~25 min",[]],
+  ["09:30","Praia de Carcavelos","Balade sur la grande plage, regarder les surfeurs.","",["carcavelos"]],
+  ["10:30","Cascais","Vieux centre, petit port, promenade. Déjeuner sur place.","Train · ~15 min",["cascais"]],
+  ["13:45","Praia do Guincho","Plage sauvage et ventée, dunes et montagne de Sintra derrière.","Bus Carris Metropolitana ou taxi · ~20 min",["guincho"]],
+  ["15:15","Praia da Ursa","Sentier raide de 20 à 30 min depuis la route du cap. Seulement par temps sec : mouillé, il est dangereux. Remonter avant 17h.","Taxi ou VTC jusqu'au Cabo da Roca · ~15 min",["praia-ursa"],"opt"],
+  ["16:50","Cabo da Roca au coucher du soleil","Le bout de l'Europe, soleil couchant sur l'Atlantique vers 17h20. Prévoir un coupe-vent.","",["roca"]],
+  ["17:45","Retour par Sintra","On termine en train à la gare du Rossio, sous l'auberge. Arrivée vers 19h30.","Bus 1253 jusqu'à Sintra · ~40 min, puis train ~40 min",[]]
+ ],warn:"Il y a peu de bus entre Guincho et le Cabo da Roca : le taxi ou le VTC (une quinzaine d'euros) fait gagner beaucoup de temps.",rain:"Tout est en plein air et très exposé au vent : s'il pleut, ne pas y aller. Faire à la place la journée à l'abri (Azulejo et Oceanário), ou Belém."},
+ mix:{title:"Alfama le matin, Belém l'après-midi",from:"Départ : tram 28 à Martim Moniz (5 min de l'auberge).",steps:[
+  ["08:45","Miradouro da Senhora do Monte","Vue à 360° sans la foule.","Tram 28 · ~15 min",["senhora-monte"]],
+  ["09:30","Castelo de São Jorge","Ouvre à 9h. Remparts et panorama. 1 h 30.","15 min à pied par Graça",["castelo"]],
+  ["11:15","Alfama, Santa Luzia et la Sé","On descend par les ruelles jusqu'à la cathédrale.","À pied, tout en descente",["alfama","santa-luzia","se"]],
+  ["12:30","Déjeuner vers la Baixa","","10 min à pied",[]],
+  ["13:30","Tram 15E jusqu'à Belém","Départ de Praça do Comércio.","Tram 15E · ~25 min",[]],
+  ["14:00","Mosteiro dos Jerónimos","Dernière entrée vers 17h, réserver en ligne.","",["belem","jeronimos"]],
+  ["15:30","Pastéis de Belém","Le goûter obligatoire.","3 min à pied",["pasteis"]],
+  ["16:15","Padrão dos Descobrimentos et coucher du soleil sur le Tejo","Avec le Ponte 25 de Abril en fond.","10 min à pied",["padrao","ponte-25-abril"]],
+  ["17:45","Dîner à la LX Factory","Les restos restent ouverts le soir.","Tram 15E ou taxi · ~10 min",["lx"]],
+  ["20:00","Retour à l'auberge","","Taxi ~15 min, ou tram 15E",[]]
+ ],rain:"S'il pleut le matin, inverser : Belém (Jerónimos, Pastéis, LX Factory, tout à l'abri) le matin, et le château l'après-midi si ça se dégage."},
+ depart:{date:"ven 13",title:"Pim Pam Café et retour",from:"Check-out avant 11h. Le café est sur la ligne verte, à un arrêt de la correspondance pour l'aéroport.",steps:[
+  ["08:15","Check-out avec les sacs","La réception est ouverte 24h/24.","",[]],
+  ["08:30","Petit-déj au Pim Pam Café","Rua de Moçambique 23B (Anjos). Café de spécialité dans une ancienne boulangerie à azulejos, connu pour son banana bread et son sandwich japonais à l'œuf. Ouvert du mardi au samedi dès 8h15.","Métro vert Rossio → Anjos (3 arrêts) + 5 min à pied · ~15 min",["pimpam"]],
+  ["10:15","Métro vers l'aéroport","","Ligne verte Anjos → Alameda (1 arrêt), puis rouge jusqu'à Aeroporto · ~25 min",[]],
+  ["11:00","Arrivée à l'aéroport, Terminal 2","Bagage cabine seulement. Porte fermée vers 12h15.","",[]],
+  ["12:45","Décollage pour Marseille (FR487)","Arrivée à Marseille à 16:05.","",[],"fly"]
+ ],rain:"Seuls 5 min de marche dehors entre le métro et le café : K-way à portée de main, et on garde une marge si la pluie ralentit tout."}
+};
+const VARIANTS=[
+ {id:"a",key:"Variante A",name:"Spéciale pluie",badge:["Conseillée cette semaine",""],desc:"Calée sur les prévisions : Belém mardi (averses, presque tout à l'intérieur), une journée entièrement à l'abri mercredi (le jour le plus orageux), l'Alfama jeudi (le moins pluvieux).",plan:["belem","abri","alfama"]},
+ {id:"b",key:"Variante B",name:"Ville + Sintra",badge:["Si jeudi est sec","alt"],desc:"Sintra placée jeudi, le jour le moins pluvieux annoncé. Si mercredi est vraiment orageux, échanger l'Alfama avec la journée à l'abri.",plan:["belem","alfama","sintra"]},
+ {id:"c",key:"Variante C",name:"Sintra + la côte",badge:["Grand beau seulement","rain"],desc:"Le maximum de nature, deux journées en plein air. À garder seulement si les prévisions deviennent sèches.",plan:["sintra","cote","mix"]}
+];
+const DN=["mar 10","mer 11","jeu 12"];
+const TIMES=[
+ ["Praça do Rossio, Santa Justa","Sur place, à pied","1–3 min"],
+ ["São Roque, Chiado","Elevador da Glória depuis Restauradores","5–10 min"],
+ ["Praça do Comércio, Baixa","À pied par la Rua Augusta","10 min"],
+ ["Bairro Alto","À pied, ça monte (ou Elevador da Glória)","10 min"],
+ ["Time Out Market, Pink Street","Métro vert jusqu'à Cais do Sodré, ou à pied","5–15 min"],
+ ["Sé, Alfama, Santa Luzia","À pied, ou tram 28 depuis Martim Moniz","12–15 min"],
+ ["Castelo de São Jorge","À pied en montée, ou bus 737","15–20 min"],
+ ["Senhora do Monte, Panteão","Tram 28 depuis Martim Moniz","15–20 min"],
+ ["Pim Pam Café","Métro vert jusqu'à Anjos + 5 min à pied","15 min"],
+ ["Parque Eduardo VII","Métro bleu depuis Restauradores, ou à pied","10–25 min"],
+ ["Aqueduto das Águas Livres","Taxi, ou métro + marche","20–30 min"],
+ ["Museu do Azulejo","Bus 759 depuis Restauradores, ou taxi","15–25 min"],
+ ["Belém, Jerónimos, Pastéis","Tram 15E depuis Praça da Figueira","35 min"],
+ ["LX Factory, Ponte 25 de Abril","Tram 15E jusqu'à Calvário","25 min"],
+ ["Oceanário","Métro vert puis rouge jusqu'à Oriente, ou bus 759","25–40 min"],
+ ["Sintra (Pena, Regaleira)","Train depuis la gare du Rossio + montée","40 min + 1 h"],
+ ["Carcavelos","Métro + train ligne de Cascais","30 min"],
+ ["Cascais","Métro + train ligne de Cascais","45 min"],
+ ["Guincho, Cabo da Roca, Ursa","Train jusqu'à Cascais puis bus ou taxi","1 h 10–1 h 30"],
+ ["Aéroport","Métro vert puis rouge","30 min"]
+];
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// Petite icône selon le type d'étape (décoratif)
+const ICO=[
+ [/Décollage/,"✈️","i-blue"],[/^Bus/,"🚌","i-blue"],[/Livraria/,"📚","i-pink"],[/Atterrissage/,"🛬","i-blue"],[/Métro/,"🚇","i-blue"],[/^Train|Train /,"🚆","i-blue"],[/Tram/,"🚋","i-blue"],
+ [/Check/,"🛏️","i-orange"],[/Arrivée à l'aéroport/,"🛫","i-blue"],[/Café|Petit-déj|Pastéis/,"☕","i-orange"],[/Déjeuner|Dîner|Goûter|Time Out/,"🍽️","i-orange"],
+ [/Verre|Soirée|Bairro Alto/,"🍹","i-pink"],[/coucher du soleil|Cabo da Roca/,"🌅","i-pink"],[/Praia/,"🏖️","i-green"],[/Montée|Descente|rando/i,"🥾","i-green"],
+ [/Parque|Palácio|Quinta/,"🌳","i-green"],[/Oceanário/,"🐠","i-blue"],[/Museu/,"🏛️","i-pink"],[/Miradouro|Elevador/,"👀","i-pink"],
+ [/Castelo|Mosteiro|Sé de|Panteão|Padrão|Aqueduto/,"🏰","i-pink"],[/Retour/,"🏠","i-green"]
+];
+function icon(t){for(const [r,e,c] of ICO)if(r.test(t))return [e,c];return ["📍","i-pink"]}
+const DAYCOL=["i-blue","i-pink","i-orange","i-green","i-blue"];
+function labels(i){return i===0?"lun 9":i===4?"ven 13":DN[i-1]}
+function dayHTML(key,i){
+  const d=DAYS[key],lab=labels(i),num=lab.split(" ")[1];
+  const steps=d.steps.map(([t,w,n,g,ids,f])=>{const [e,c]=icon(w);
+    return `<li class="${f?"s-"+f:""}"><span class="chip">${t}</span><div class="card step"><span class="ico ${c}">${e}</span><div><b>${esc(w)}${f==="opt"?'<span class="pill soon">option</span>':""}</b>${n?`<div class="n">${esc(n)}</div>`:""}${g?`<div class="go">${esc(g)}</div>`:""}</div></div></li>`}).join("");
+  return `<section class="day sheet" id="jour-${i}"><div class="dayhead"><span class="ico ${DAYCOL[i]}">${num}</span><div><span class="label">${lab}</span><h2>${esc(d.title)}</h2><p>${esc(d.from)}</p></div></div>
+    <ol class="tl">${steps}</ol>${d.warn?`<div class="warn"><span>💡</span><span>${esc(d.warn)}</span></div>`:""}${d.rain?`<div class="warn rain"><span>☔</span><span><b>Plan B s'il pleut fort :</b> ${esc(d.rain)}</span></div>`:""}</section>`;
+}
+function render(id){
+  const v=VARIANTS.find(x=>x.id===id)||VARIANTS[0];
+  document.querySelectorAll(".opt").forEach(b=>b.setAttribute("aria-pressed",b.dataset.id===v.id));
+  const all=["arrivee",...v.plan,"depart"];
+  $("#vtitle").textContent=v.key+" en un coup d'œil";
+  $("#strip").innerHTML=all.map((k,i)=>{const lab=labels(i),[dn,num]=lab.split(" ");
+    return `<a class="daytile${i===0||i===4?" key":""}" href="#jour-${i}"><span class="bubble">${num}</span><span class="box"><b>${dn.charAt(0).toUpperCase()+dn.slice(1)}</b><span class="t">${esc(DAYS[k].title)}</span></span></a>`}).join("");
+  $("#days").innerHTML=all.map((k,i)=>dayHTML(k,i)).join("");
+  const seen=new Set();all.forEach(k=>DAYS[k].steps.forEach(s=>s[4].forEach(p=>seen.add(p))));
+  const ids=Object.keys(PLACES),inn=ids.filter(p=>seen.has(p)),out=ids.filter(p=>!seen.has(p));
+  $("#cover").innerHTML=`<div class="section-title"><h2>${inn.length} lieux sur ${ids.length} dans la variante ${v.id.toUpperCase()}</h2><span class="label">Lieux du carnet</span></div>
+    <div class="tags">${inn.map(p=>`<span class="tag">${PLACES[p]}</span>`).join("")}</div>
+    ${out.length?`<p class="note">Pas dans ce programme :</p><div class="tags">${out.map(p=>`<span class="tag off">${PLACES[p]}</span>`).join("")}</div>`:""}
+    <p class="note">Photos, prix et horaires de chaque lieu : <a href="3-activites.html">carnet des activités ↗</a></p>`;
+  try{localStorage.setItem("itin-variant",v.id)}catch(e){}
+}
+$("#picker").innerHTML=VARIANTS.map(v=>`<button class="card opt taped" type="button" id="opt-${v.id}" data-id="${v.id}" aria-pressed="false">
+  <span><span class="pill ${v.badge[1]==="alt"?"ok":v.badge[1]==="rain"?"":"soon"}">${v.badge[0]}</span></span><span class="k">${v.key}</span><span class="n">${v.name}</span><span class="d">${v.desc}</span><span class="sel">✓ Affichée ci-dessous</span></button>`).join("");
+$("#picker").addEventListener("click",e=>{const b=e.target.closest(".opt");if(b)render(b.dataset.id)});
+$("#strip").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();const t=document.querySelector(a.getAttribute("href"));if(t)t.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})});
+$("#times").innerHTML=TIMES.map(([a,b,c])=>`<div class="trow"><div>${a}</div><div class="h">${b}</div><div class="m">${c}</div></div>`).join("");
+let start="a";try{start=localStorage.getItem("itin-variant")||"a"}catch(e){}
+render(start);
+</script>
