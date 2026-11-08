@@ -374,7 +374,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
     </a>
     <a class="card tile taped" href="#passagers">
       <div class="top"><span class="ico i-pink">👥</span><h3>Passagers</h3></div>
-      <p>Matteo : enregistré, siège 23A<br>Enzio : <b style="color:var(--red)">pas encore enregistré</b></p>
+      <p>Matteo : enregistré, siège 23A<br>Enzio : enregistré à l'aller, siège 33A · <b style="color:var(--red)">retour à faire</b></p>
       <span class="go">Voir les passagers →</span>
     </a>
     <a class="card tile taped" href="#checklist">
@@ -472,8 +472,16 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
     </dl>
   </article>
   <article class="card taped" style="display:grid;gap:14px">
-    <div class="pax-top"><span class="avatar alt">E</span><div><b style="font-size:17px">Enzio</b><div><span class="pill warn">Pas encore enregistré</span></div></div><span class="seat" style="color:var(--muted)">–</span></div>
-    <div class="callout red">À faire : enregistrer Enzio sur le FR486 et le FR487 dans l'appli Ryanair. Sinon l'enregistrement au comptoir est payant.</div>
+    <div class="pax-top"><span class="avatar alt">ER</span><div><b style="font-size:17px">Enzio Rousseau</b><div><span class="pill ok">✓ Enregistré · aller</span> <span class="pill warn">Retour à faire</span></div></div><span class="seat">33A</span></div>
+    <dl class="kv">
+      <div><dt>Réservation</dt><dd><span class="mono">V2S6HC</span> (billet séparé de Matteo)</dd></div>
+      <div><dt>Aller</dt><dd>FR486 · lun 9 nov · Marseille T2 → Lisbonne T2 · <span class="mono">13:20 → 14:45</span></dd></div>
+      <div><dt>Siège</dt><dd>33A, côté hublot (aller)</dd></div>
+      <div><dt>File</dt><dd>Pas prioritaire</dd></div>
+      <div><dt>Embarquement</dt><dd>Porte arrière · ordre 90 · porte fermée à <span class="mono">12:50</span></dd></div>
+      <div><dt>Bagages</dt><dd>1 petit bagage seulement (40 × 30 × 20 cm, sous le siège) · pas de bagage cabine 10 kg sur son billet</dd></div>
+    </dl>
+    <div class="callout red">À faire : enregistrer Enzio sur le retour FR487 dans l'appli Ryanair. Sinon l'enregistrement au comptoir est payant. Le bagage cabine 10 kg commun est sur le billet de Matteo : c'est Matteo qui le porte à l'embarquement.</div>
   </article>
 </section>
 
@@ -484,7 +492,7 @@ body{font-size:16px;line-height:1.55;color:#1f2a40}
   <div class="card" style="display:grid;gap:12px">
     <div class="progress"><i id="ck-bar"></i></div>
     <ul class="check" id="checklist">
-      <li><label><input type="checkbox" id="ck9"><span><b>Enregistrer Enzio sur FR486 et FR487</b> (sinon payant au comptoir)</span></label></li>
+      <li><label><input type="checkbox" id="ck9"><span><b>Enregistrer Enzio sur le retour FR487</b> (aller FR486 fait, sinon payant au comptoir)</span></label></li>
       <li><label><input type="checkbox" id="ck2"><span>Cartes d'embarquement dans l'appli ou imprimées, pour les deux</span></label></li>
       <li><label><input type="checkbox" id="ck3"><span>Bagages au format : 10 kg en cabine + 1 petit bagage</span></label></li>
       <li><label><input type="checkbox" id="ck4"><span>Liquides en flacons de 100 ml, dans un sac transparent</span></label></li>
