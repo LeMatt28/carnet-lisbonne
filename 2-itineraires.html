@@ -314,7 +314,7 @@ h3{font-size:26px!important}
   <header class="hero">
     <div class="label" style="color:rgba(255,255,255,.8)">Carnet d'itinéraires · Matteo &amp; Enzio</div>
     <h1>Lisbonne, du 9 au 13 novembre</h1>
-    <p>Trois façons d'organiser les 3 jours pleins (mar 10, mer 11, jeu 12), plus l'arrivée du lundi et le départ du vendredi. La semaine s'annonce pluvieuse (orages lundi, averses ensuite) : la variante A est pensée pour la pluie, et chaque jour a son plan B. On garde le jour le plus sec pour Sintra ou la côte, et on décide la veille selon la météo.</p>
+    <p>Programme retenu le 9 nov. : variante B, Ville + Sintra. Mardi 10, Oceanário à 10h puis l'Alfama et le château, sans s'éloigner de l'auberge. Mercredi 11, Belém et la LX Factory. Jeudi 12, le plus beau jour, Sintra. Chaque jour garde son plan B s'il pleut fort. Les deux autres variantes restent en dessous pour mémoire.</p>
     <div class="chips"><span>3 variantes</span><span>5 jours</span><span>Base : gare du Rossio</span><span>☔ Plan B chaque jour</span></div>
   </header>
 
@@ -351,7 +351,7 @@ h3{font-size:26px!important}
   </section>
 
   <section class="sheet">
-  <div class="section-title"><h2>Choisir une variante</h2><span class="label">Trois programmes pour mar, mer, jeu · météo du 6 nov.</span></div>
+  <div class="section-title"><h2>Le programme</h2><span class="label">Variante B retenue le 9 nov. · les autres pour mémoire</span></div>
   <div class="picker" id="picker" role="group" aria-label="Variantes"></div>
 
   <div class="section-title"><h2 id="vtitle">La semaine</h2><span class="label">Touchez un jour</span></div>
@@ -402,6 +402,18 @@ const DAYS={
   ["16:00","Castelo de São Jorge jusqu'au coucher du soleil","Remparts en plein air : à faire au moment le plus sec. Coucher du soleil à 17h20, fermeture vers 18h.","10 min à pied en montée, ou bus 737",["castelo"]],
   ["19:00","Dîner fado dans l'Alfama","Retour à l'auberge en 15 min à pied, tout en descente (taxi s'il pleut).","",[]]
  ],rain:"S'il pleut fort toute la journée : Panteão, Sé et Museu do Azulejo, en taxi entre les trois, et on garde le château pour une éclaircie un autre jour."},
+ oceano:{title:"Oceanário le matin, Alfama et château l'après-midi",from:"Matin à l'Oceanário (billets pris pour 10h), puis retour près de l'auberge : tout l'après-midi se fait à pied ou en bus depuis la Praça da Figueira, sans grands trajets.",steps:[
+  ["08:45","Petit-déj à la Confeitaria Nacional","Pâtisserie de 1829 sur la Praça da Figueira, on s'assoit à l'intérieur. L'auberge ne sert pas de petit-déj.","2 min à pied",[]],
+  ["09:20","Métro jusqu'à Oriente","Correspondance à Alameda sans ressortir. De la gare d'Oriente, ~10 min à pied à l'abri en traversant le centre Vasco da Gama.","Métro vert Rossio → Alameda, puis rouge jusqu'à Oriente · ~30 min",[]],
+  ["10:00","Oceanário de Lisboa","Billets réservés pour 10h (réservation 110820754, PDF dans l'email de tickets@oceanario.pt). Compter 2 h à 2 h 30.","",["oceanario"]],
+  ["12:30","Déjeuner au centre Vasco da Gama","Le centre commercial juste à côté, avec sa grande zone de restauration couverte. Au sec en attendant une averse.","10 min à pied",[]],
+  ["13:45","Retour vers le centre en métro","On descend à Rossio, juste sous l'auberge : on peut poser les affaires ou se sécher.","Métro rouge Oriente → Alameda, puis vert jusqu'à Rossio · ~25 min",[]],
+  ["14:30","Bus 737 jusqu'au Castelo de São Jorge","Le petit bus monte jusqu'à la porte du château, sans grimper sous la pluie.","Bus 737 depuis la Praça da Figueira (2 min de l'auberge) · ~15 min",[]],
+  ["14:45","Castelo de São Jorge","Remparts et panorama sur toute la ville. En plein air : à faire si ça se calme, sinon voir le plan B. Compter 1 h 30.","",["castelo"]],
+  ["16:30","Miradouro de Santa Luzia et ruelles de l'Alfama","On redescend à pied par les ruelles. Coucher du soleil vers 17h20 depuis la terrasse aux azulejos. Les pavés mouillés glissent : bonnes semelles.","5 à 10 min à pied, en descente",["santa-luzia","alfama"]],
+  ["17:30","Sé de Lisboa","La cathédrale-forteresse, à l'intérieur (heure de fermeture à vérifier sur place).","5 min à pied en descente",["se"]],
+  ["19:00","Dîner fado dans l'Alfama","Retour à l'auberge en 15 min à pied, tout en descente (taxi s'il pleut).","",[]]
+ ],warn:"L'après-midi reste entre l'Alfama et la Baixa, à 15 min à pied de l'auberge : on peut rentrer se mettre au sec à tout moment.",rain:"S'il pleut fort l'après-midi : au retour de l'Oceanário, prendre le bus 759 qui passe devant le Museu Nacional do Azulejo (ouvert le mardi, à l'abri, ~1 h 30), puis continuer jusqu'à Restauradores. Le château se garde pour une éclaircie, et le Panteão Nacional (intérieur, ouvert le mardi) remplace Santa Luzia."},
  belem:{title:"Belém et l'ouest",from:"Départ : tram 15E à Praça da Figueira, à 2 min de l'auberge. Presque tout se visite à l'intérieur.",steps:[
   ["08:45","Tram 15E jusqu'à Belém","Alternative : métro vert jusqu'à Cais do Sodré puis train, 7 min, tout à l'abri.","Tram 15E · ~35 min",[]],
   ["09:30","Petit-déj aux Pastéis de Belém","Ouvert dès 8h, pastéis de nata chauds, on s'assoit dans les salles du fond. L'auberge ne sert pas de petit-déj.","",["pasteis","belem"]],
@@ -412,7 +424,7 @@ const DAYS={
   ["14:30","LX Factory","Boutiques, cafés et la librairie Ler Devagar dans d'anciennes usines : on y passe facilement 2 h au sec.","Tram 15E jusqu'à Calvário · ~10 min",["lx"]],
   ["16:30","Cais do Sodré, Time Out Market et Pink Street","Goûter ou dîner au marché couvert. Si c'est déjà fait lundi, aller plutôt dîner au Bairro Alto.","Tram 15E ou train · ~15 min",["time-out","pink-street"]],
   ["19:30","Retour à l'auberge","","Métro vert Cais do Sodré → Rossio · 5 min",[]]
- ],rain:"Si l'averse ne s'arrête pas : le Museu Nacional dos Coches (carrosses royaux, ouvert du mardi au dimanche) est à 5 min des Pastéis. Le MAAT, lui, est fermé le mardi."},
+ ],rain:"Si l'averse ne s'arrête pas : le Museu Nacional dos Coches (carrosses royaux, ouvert du mardi au dimanche) est à 5 min des Pastéis. Le MAAT (musée d'art et d'architecture, au bord du Tejo) est ouvert le mercredi, fermé seulement le mardi."},
  abri:{title:"Azulejos et Oceanário, journée à l'abri",from:"Départ : bus 759 à Restauradores, à 3 min de l'auberge. Il passe devant le musée puis continue jusqu'à la gare d'Oriente.",steps:[
   ["09:15","Petit-déj à la Confeitaria Nacional","Pâtisserie de 1829 sur la Praça da Figueira, on s'assoit à l'intérieur.","2 min à pied",[]],
   ["10:00","Museu Nacional do Azulejo","Ouvre à 10h (fermé le lundi). Carreaux peints, grand panorama de Lisbonne en azulejos et église dorée. Compter 1 h 30.","Bus 759 · ~20 min, ou taxi ~10 min",["azulejo"]],
@@ -431,7 +443,7 @@ const DAYS={
   ["14:30","Quinta da Regaleira","Le puits initiatique en spirale, les grottes et les tunnels. Compter 2 h. Marches glissantes par temps humide.","10 min à pied du centre",["regaleira"]],
   ["16:45","Train retour","On arrive directement sous l'auberge.","Train · ~40 min",[]],
   ["18:00","Soirée libre en ville","Bairro Alto, ou un dîner au chaud près de l'auberge.","",[]]
- ],warn:"Par beau temps, variante possible : après la Pena, bus 1253 jusqu'au Cabo da Roca (~40 min) pour le coucher du soleil, à la place de la Regaleira.",rain:"Sous une vraie pluie, Sintra perd beaucoup : brouillard, pas de vue, sentiers glissants. Dans ce cas, faire la journée à l'abri (Azulejo et Oceanário) et garder Sintra pour un jour plus sec."},
+ ],warn:"Par beau temps, variante possible : après la Pena, bus 1253 jusqu'au Cabo da Roca (~40 min) pour le coucher du soleil, à la place de la Regaleira.",rain:"Sous une vraie pluie, Sintra perd beaucoup : brouillard, pas de vue, sentiers glissants. Jeudi est annoncé comme le plus beau jour de la semaine. S'il pleut quand même, échanger avec mercredi : Belém se fait presque tout à l'intérieur."},
  cote:{title:"La côte : Carcavelos, Cascais, Guincho, Cabo da Roca",from:"Départ : métro vert jusqu'à Cais do Sodré (5 min), puis train de la ligne de Cascais. Uniquement par temps sec.",steps:[
   ["08:45","Métro + train vers Carcavelos","","Métro 5 min + train ~25 min",[]],
   ["09:30","Praia de Carcavelos","Balade sur la grande plage, regarder les surfeurs.","",["carcavelos"]],
@@ -462,9 +474,9 @@ const DAYS={
  ],rain:"Seuls 5 min de marche dehors entre le métro et le café : K-way à portée de main, et on garde une marge si la pluie ralentit tout."}
 };
 const VARIANTS=[
- {id:"a",key:"Variante A",name:"Spéciale pluie",badge:["Conseillée cette semaine",""],desc:"Calée sur les prévisions : Belém mardi (averses, presque tout à l'intérieur), une journée entièrement à l'abri mercredi (le jour le plus orageux), l'Alfama jeudi (le moins pluvieux).",plan:["belem","abri","alfama"]},
- {id:"b",key:"Variante B",name:"Ville + Sintra",badge:["Si jeudi est sec","alt"],desc:"Sintra placée jeudi, le jour le moins pluvieux annoncé. Si mercredi est vraiment orageux, échanger l'Alfama avec la journée à l'abri.",plan:["belem","alfama","sintra"]},
- {id:"c",key:"Variante C",name:"Sintra + la côte",badge:["Grand beau seulement","rain"],desc:"Le maximum de nature, deux journées en plein air. À garder seulement si les prévisions deviennent sèches.",plan:["sintra","cote","mix"]}
+ {id:"b",key:"Variante B",name:"Ville + Sintra",badge:["✓ Notre programme",""],desc:"Mardi : Oceanário à 10h, puis l'Alfama et le château près de l'auberge. Mercredi : Belém et la LX Factory. Jeudi, le plus beau jour : Sintra.",plan:["oceano","belem","sintra"]},
+ {id:"a",key:"Variante A",name:"Spéciale pluie",badge:["Ancienne piste","alt"],desc:"Proposée le 6 nov. pour une semaine très pluvieuse : Belém mardi, une journée à l'abri (Azulejo et Oceanário) mercredi, l'Alfama jeudi. Pas compatible avec l'Oceanário réservé mardi à 10h.",plan:["belem","abri","alfama"]},
+ {id:"c",key:"Variante C",name:"Sintra + la côte",badge:["Grand beau seulement","rain"],desc:"Le maximum de nature, deux journées en plein air. Pas retenue : la météo n'est belle que jeudi.",plan:["sintra","cote","mix"]}
 ];
 const DN=["mar 10","mer 11","jeu 12"];
 const TIMES=[
@@ -523,13 +535,13 @@ function render(id){
     <div class="tags">${inn.map(p=>`<span class="tag">${PLACES[p]}</span>`).join("")}</div>
     ${out.length?`<p class="note">Pas dans ce programme :</p><div class="tags">${out.map(p=>`<span class="tag off">${PLACES[p]}</span>`).join("")}</div>`:""}
     <p class="note">Photos, prix et horaires de chaque lieu : <a href="3-activites.html">carnet des activités ↗</a></p>`;
-  try{localStorage.setItem("itin-variant",v.id)}catch(e){}
+  try{localStorage.setItem("itin-variant2",v.id)}catch(e){}
 }
 $("#picker").innerHTML=VARIANTS.map(v=>`<button class="card opt taped" type="button" id="opt-${v.id}" data-id="${v.id}" aria-pressed="false">
   <span><span class="pill ${v.badge[1]==="alt"?"ok":v.badge[1]==="rain"?"":"soon"}">${v.badge[0]}</span></span><span class="k">${v.key}</span><span class="n">${v.name}</span><span class="d">${v.desc}</span><span class="sel">✓ Affichée ci-dessous</span></button>`).join("");
 $("#picker").addEventListener("click",e=>{const b=e.target.closest(".opt");if(b)render(b.dataset.id)});
 $("#strip").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();const t=document.querySelector(a.getAttribute("href"));if(t)t.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})});
 $("#times").innerHTML=TIMES.map(([a,b,c])=>`<div class="trow"><div>${a}</div><div class="h">${b}</div><div class="m">${c}</div></div>`).join("");
-let start="a";try{start=localStorage.getItem("itin-variant")||"a"}catch(e){}
+let start="b";try{start=localStorage.getItem("itin-variant2")||"b"}catch(e){}
 render(start);
 </script>
