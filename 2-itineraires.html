@@ -435,15 +435,18 @@ const DAYS={
   ["17:30","Retour en métro","Ligne rouge puis verte, tout en souterrain jusqu'à Rossio.","Métro · ~25 min",[]],
   ["19:30","Dîner au chaud dans la Baixa","Une tasca ou une cervejaria près de l'auberge, sans reprendre les transports.","5 min à pied",[]]
  ],rain:"Si l'orage est très violent : taxi direct jusqu'à l'Oceanário (~15 €) et Pavilhão do Conhecimento à côté, ce qui remplit la journée sans presque sortir."},
- sintra:{title:"Sintra",from:"Départ : le train pour Sintra part de la gare du Rossio, sous l'auberge. À garder pour le jour le plus sec.",steps:[
-  ["08:30","Train Rossio → Sintra","Trains toutes les 20 à 30 min.","Train · ~40 min",[]],
-  ["09:20","Montée vers la Pena : sentier ou bus 434","Par temps sec, le sentier balisé dans la forêt (environ 1 h, 250 m de dénivelé). S'il a plu, il devient boueux et glissant : prendre le bus 434 depuis la gare (~20 min).","15 min de la gare au village, puis sentier ou bus",[]],
-  ["10:30","Palácio da Pena et son parc","Billet à horaire, à réserver la veille. Le palais est couvert, mais le parc et les terrasses sont en plein air et souvent dans le brouillard quand il pleut.","",["pena"]],
-  ["13:00","Descente et déjeuner au village","Goûter les travesseiros, la pâtisserie locale.","~40 min à pied, ou bus 434",[]],
-  ["14:30","Quinta da Regaleira","Le puits initiatique en spirale, les grottes et les tunnels. Compter 2 h. Marches glissantes par temps humide.","10 min à pied du centre",["regaleira"]],
-  ["16:45","Train retour","On arrive directement sous l'auberge.","Train · ~40 min",[]],
-  ["18:00","Soirée libre en ville","Bairro Alto, ou un dîner au chaud près de l'auberge.","",[]]
- ],warn:"Par beau temps, variante possible : après la Pena, bus 1253 jusqu'au Cabo da Roca (~40 min) pour le coucher du soleil, à la place de la Regaleira.",rain:"Sous une vraie pluie, Sintra perd beaucoup : brouillard, pas de vue, sentiers glissants. Jeudi est annoncé comme le plus beau jour de la semaine. S'il pleut quand même, échanger avec mercredi : Belém se fait presque tout à l'intérieur."},
+ sintra:{title:"Sintra puis Belém",from:"Départ : le train pour Sintra part de la gare du Rossio, sous l'auberge. Réouverture jeudi après la tempête à vérifier le matin sur parquesdesintra.pt. Billets : Pena 20 €, Maures 12 €, Regaleira 20 € (total 52 € par personne).",steps:[
+  ["07:40","Train Rossio → Sintra","Direct, terminus Sintra. Horaire exact à vérifier en gare ou sur l'appli CP.","Train · ~40 min",[]],
+  ["08:20","Bus 434 jusqu'à la Pena","Arrêt devant la gare. Pass 24 h ≈ 13,50 €. Sinon sentier (~1 h de montée) ou taxi.","Bus · ~20 min",[]],
+  ["09:30","Palácio da Pena et son parc","Billet « Visita essencial » 20 €, créneau horaire pour le palais. Palais 9h30–18h30, dernière entrée 18h. Compter 2 h.","",["pena"]],
+  ["11:45","Castelo dos Mouros","Remparts sur la crête. 12 €. Ouvert 9h30–18h, dernière entrée 17h30. Compter 1 h.","10 à 15 min à pied depuis la Pena",[]],
+  ["13:15","Déjeuner au centre historique","Tascantiga (petits plats portugais, ~12 à 25 €) puis un travesseiro chez Casa Piriquita.","~30 min à pied par la Vila Sassetti, ou bus 434 ~10 min",[]],
+  ["14:15","Quinta da Regaleira","Le puits initiatique, les grottes et les tunnels. 20 € sur regaleira.byblueticket.pt. 10h–18h30, dernière entrée 17h30. Compter 1 h 15.","10 à 15 min à pied du centre",["regaleira"]],
+  ["15:35","Train retour","Arrivée vers 16h15 au Rossio.","15 à 20 min à pied jusqu'à la gare, puis train ~40 min",[]],
+  ["17:00","Belém : Padrão dos Descobrimentos","Dernière entrée 17h30. Coucher du soleil vers 17h20. Sans les Jerónimos.","Tram 15E depuis la Praça da Figueira · ~35 min",[]],
+  ["17:45","Pastéis de Belém","Les pastéis de nata d'origine.","10 min à pied",[]],
+  ["19:30","Dîner bacalhau","A Licorista e O Bacalhoeiro (Baixa, 5 min de l'auberge), Taberna Carolina (Chiado) ou Ritalinos (Estrela).","",[]]
+ ],rain:"Jeudi est annoncé comme le plus beau jour de la semaine. Si un site reste fermé après la tempête, faire les autres et prolonger Belém."},
  cote:{title:"La côte : Carcavelos, Cascais, Guincho, Cabo da Roca",from:"Départ : métro vert jusqu'à Cais do Sodré (5 min), puis train de la ligne de Cascais. Uniquement par temps sec.",steps:[
   ["08:45","Métro + train vers Carcavelos","","Métro 5 min + train ~25 min",[]],
   ["09:30","Praia de Carcavelos","Balade sur la grande plage, regarder les surfeurs.","",["carcavelos"]],
@@ -474,7 +477,7 @@ const DAYS={
  ],rain:"Seuls 5 min de marche dehors entre le métro et le café : K-way à portée de main, et on garde une marge si la pluie ralentit tout."}
 };
 const VARIANTS=[
- {id:"b",key:"Variante B",name:"Ville + Sintra",badge:["✓ Notre programme",""],desc:"Mardi : Oceanário à 10h, puis l'Alfama et le château près de l'auberge. Mercredi : Belém et la LX Factory. Jeudi, le plus beau jour : Sintra.",plan:["oceano","belem","sintra"]},
+ {id:"b",key:"Variante B",name:"Ville + Sintra",badge:["✓ Notre programme",""],desc:"Mardi : Oceanário à 10h, puis l'Alfama et le château près de l'auberge. Mercredi : Belém et la LX Factory. Jeudi, le plus beau jour : Sintra le matin, Belém en fin d'après-midi.",plan:["oceano","belem","sintra"]},
  {id:"a",key:"Variante A",name:"Spéciale pluie",badge:["Ancienne piste","alt"],desc:"Proposée le 6 nov. pour une semaine très pluvieuse : Belém mardi, une journée à l'abri (Azulejo et Oceanário) mercredi, l'Alfama jeudi. Pas compatible avec l'Oceanário réservé mardi à 10h.",plan:["belem","abri","alfama"]},
  {id:"c",key:"Variante C",name:"Sintra + la côte",badge:["Grand beau seulement","rain"],desc:"Le maximum de nature, deux journées en plein air. Pas retenue : la météo n'est belle que jeudi.",plan:["sintra","cote","mix"]}
 ];
